@@ -1,5 +1,6 @@
 using System;                                   // System contains a lot of default C# libraries 
 using GXPEngine;                                // GXPEngine contains the engine
+using System.Collections.Generic;
 using System.Drawing;                           // System.Drawing contains drawing tools such as Color definitions
 using System.Collections.Generic;
 using System.Threading;
@@ -9,13 +10,57 @@ public class MyGame : Game {
     bool _paused = false;
     int _stepIndex = 0;
     int _startSceneNumber = 0;
+	public int currentLevel = 0; // levels start from level 0
+	public string[] levels = new string[1];	// amount of levels is 1
+
+	public bool nextLevel = false;
+
+	public int GetCurrentLevel()
+	{
+		return currentLevel;
+	}
+	public void SetCurrentLevel(int _value)
+	{
+		currentLevel = _value;
+		if (currentLevel >= 4) { currentLevel = 0; }
+		LoadLevel(levels[currentLevel]);
+	}
 
     Canvas _lineContainer = null;
+	public MyGame() : base(800, 600, false)     
+	{
+		levels[0] = "TestLevel.tmx";
+
+		LoadLevel(levels[0]);
+
+	}
 
     List<Ball> _movers;
     List<LineSegment> _lines;
     EasyDraw congrats;
 	Font rowdies;
+	void DestroyAllLevels()
+	{
+		List<GameObject> children = GetChildren();
+		foreach (GameObject child in children)
+		{
+			child.Destroy();
+		}
+	}
+
+	private void LoadLevel(string name)
+	{
+		nextLevel = false;
+		DestroyAllLevels();
+		Level level = new Level(name);
+		AddChild(level);
+		//player = FindObjectOfType<Player>(); /*for when we add a player*/
+	}
+
+	// For every game object, Update is called every frame, by the engine:
+	void Update() {
+		// Empty
+	}
 
     public int GetNumberOfLines()
     {
@@ -102,6 +147,6 @@ public class MyGame : Game {
 
 	static void Main()                          // Main() is the first method that's called when the program is run
 	{
-		new MyGame().Start();                   // Create a "MyGame" and start it
+		new MyGame().Start();                   
 	}
 }
