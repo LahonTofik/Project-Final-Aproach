@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="Ball.cs" />
     <Compile Include="CollisionInfo.cs" />
+    <Compile Include="CollisionLine.cs" />
     <Compile Include="Components\Arrow.cs" />
     <Compile Include="Components\LineSegment.cs" />
     <Compile Include="GXPEngine\AddOns\Gizmos.cs" />
