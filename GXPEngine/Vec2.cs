@@ -119,10 +119,10 @@ public struct Vec2
         // TODO: return a unit normal
         return new Vec2(-y, x).Normalized();
     }
-    public void Reflect(Vec2 pNormal, float pBounciness = 1)
+    public void Reflect(Vec2 pNormal, Vec2 COM, float pBounciness = 0.98f)
     {
         Vec2 vel = new Vec2(x, y);
-        vel = vel - (1 + pBounciness) * (vel.Dot(pNormal)) * pNormal;
+        vel = vel - (1 + pBounciness) * ((vel + COM).Dot(pNormal)) * pNormal;
         x = vel.x;
         y = vel.y;
     }

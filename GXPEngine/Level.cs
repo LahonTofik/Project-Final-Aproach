@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -32,7 +32,6 @@ public class Level : GameObject
         loader.addColliders = true;
         loader.LoadTileLayers(2); // platforms and walls (everything that is collidable)
         loader.LoadObjectGroups();
-
     }
     void CreateCollisions()
     {
