@@ -2,6 +2,7 @@ using System;                                   // System contains a lot of defa
 using GXPEngine;                                // GXPEngine contains the engine
 using System.Collections.Generic;
 using System.Drawing;                           // System.Drawing contains drawing tools such as Color definitions
+using System.Collections.Generic;
 using System.Threading;
 
 public class MyGame : Game {
@@ -28,9 +29,7 @@ public class MyGame : Game {
     Canvas _lineContainer = null;
 	public MyGame() : base(800, 600, false)     
 	{
-        _movers = new List<Ball>();
-        _lines = new List<LineSegment>();
-        levels[0] = "TestLevel.tmx";
+		levels[0] = "TestLevel.tmx";
 
 		LoadLevel(levels[0]);
 
@@ -60,16 +59,9 @@ public class MyGame : Game {
 
 	// For every game object, Update is called every frame, by the engine:
 	void Update() {
-        if (!_paused)
-        {
-            StepThroughMovers();
-        }
-    }
+		// Empty
+	}
 
-    public void RemoveMover(Ball ball)
-    {
-        _movers.Remove(ball);
-    }
     public int GetNumberOfLines()
     {
         return _lines.Count;
@@ -97,6 +89,26 @@ public class MyGame : Game {
         }
         return null;
     }
+    public MyGame() : base(800, 600, false)     // Create a window that's 800x600 and NOT fullscreen
+    {
+
+        _movers = new List<Ball>();
+        _lines = new List<LineSegment>();
+        // Draw some things on a canvas:
+        EasyDraw canvas = new EasyDraw(800, 600);
+        canvas.Clear(Color.MediumPurple);
+        canvas.Fill(Color.Yellow);
+        canvas.Ellipse(width / 2, height / 2, 200, 200);
+        canvas.Fill(50);
+        canvas.TextSize(32);
+        canvas.TextAlign(CenterMode.Center, CenterMode.Center);
+        canvas.Text("Welcome!", width / 2, height / 2);
+
+        // Add the canvas to the engine to display it:
+        AddChild(canvas);
+        Console.WriteLine("MyGame initialized");
+
+    }
     void StepThroughMovers()
     {
         if (_stepped)
@@ -120,6 +132,14 @@ public class MyGame : Game {
                     _movers[i].Step();
                 }
             }
+        }
+    }
+
+    void Update()
+    {
+        if (!_paused)
+        {
+            StepThroughMovers();
         }
     }
 
