@@ -4,8 +4,10 @@ using System.Collections.Generic;
 using System.Drawing;                           // System.Drawing contains drawing tools such as Color definitions
 using System.Threading;
 
-public class MyGame : Game {
+public class MyGame : Game
+{
     bool _stepped = false;
+    Vec2 MousePos;
     bool _paused = false;
     int _stepIndex = 0;
     int _startSceneNumber = 0;
@@ -40,16 +42,22 @@ public class MyGame : Game {
     List<LineSegment> _lines;
     EasyDraw congrats;
 	Font rowdies;
-	void DestroyAllLevels()
-	{
-		List<GameObject> children = GetChildren();
-		foreach (GameObject child in children)
-		{
-			child.Destroy();
-		}
-	}
+    void DestroyAllLevels()
+    {
+        List<GameObject> children = GetChildren();
+        foreach (GameObject child in children)
+        {
+            child.Destroy();
+        }
+    }
 
-	private void LoadLevel(string name)
+    public void AddMover(Ball bullet)
+    {
+        _movers.Add(bullet);
+        AddChild(bullet);
+    }
+
+    private void LoadLevel(string name)
 	{
 		nextLevel = false;
 		DestroyAllLevels();
@@ -59,10 +67,17 @@ public class MyGame : Game {
 	}
 
 	// For every game object, Update is called every frame, by the engine:
-	void Update() {
+	void Update()
+    {
         if (!_paused)
         {
             StepThroughMovers();
+        }
+        if (Input.GetMouseButtonDown(1))
+        {
+            MousePos.SetXY(Input.mouseX, Input.mouseY);
+            AddMover(new Rock(5, MousePos, 0, default,5, new Vec2(0, 0.5f)));
+            Console.WriteLine("ball made");
         }
     }
 
