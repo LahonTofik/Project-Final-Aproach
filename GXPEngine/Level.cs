@@ -36,22 +36,22 @@ public class Level : GameObject
     }
     void CreateCollisions()
     {
-        CollisionLine[] lines = FindObjectOfType<CollisionLine>();
+        CollisionLine[] lines = FindObjectsOfType<CollisionLine>();
         foreach (var line in lines)
         {
             CollisionLine cLine = line as CollisionLine;
             var corners = cLine.GetExtents();
 
-            for (int i = 0; 0 < corners; i++)
+            for (int i = 0; 0 < corners.Length; i++)
             {
-                if (i != corners)
+                if (i != corners.Length)
                 {
                     // top line
                     myGame.AddChild(new LineSegment(new Vec2(corners[i].x, corners[i].y), new Vec2(corners[i + 1].x, corners[i + 1].y)));
                 }
                 else
                 {
-                    MyGame.AddChild(new LineSegment(new Vec2(corners[i].x, corners[i].y), new Vec2(corners[0].x, corners[0].y)));
+                    myGame.AddChild(new LineSegment(new Vec2(corners[i].x, corners[i].y), new Vec2(corners[0].x, corners[0].y)));
                 }
             }
         }
