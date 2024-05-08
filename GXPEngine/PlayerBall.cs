@@ -8,6 +8,12 @@ using System.Threading.Tasks;
 
 public class PlayerBall : Ball
 {
+    Vec2 mouseStart;
+    Vec2 mouseEnd;
+    Vec2 mouseVel;
+    Vec2 mousePos;
+    float diff;
+    bool pressed = false;
     float speed = 3;
     float maxSpeed = 6;
     float jumpPow = 15;
@@ -20,41 +26,31 @@ public class PlayerBall : Ball
     }
     void MovePlayer()
     {
-        if (Input.GetKey(Key.A))
+        mousePos = new Vec2(Input.mouseX, Input.mouseY);
+        diff = (mousePos - position).Length();
+        if (Input.GetMouseButtonDown(0) && diff < radius)
         {
-            if (velocity.x >= -maxSpeed)
-            {
-                velocity.x -= speed;
-            }
-            if (velocity.x <= -maxSpeed)
-            {
-                velocity.x = -maxSpeed;
-            }
-            movingNow = true;
+            mouseStart = new Vec2(Input.mouseX, Input.mouseY);
+            pressed = true;
         }
-        else if (Input.GetKey(Key.D)) ;
-        else
+        if (Input.GetMouseButtonUp(0) && pressed)
         {
-            movingNow = false;
+            mouseEnd = new Vec2(Input.mouseX, Input.mouseY);
+            mouseVel = (mouseEnd - mouseStart);
+            velocity += mouseVel / 100;
+            pressed = false;
         }
-        if (Input.GetKey(Key.D))
+        Slowing();
+    }
+    void Slowing()
+    {
+        if (!movingNow)
         {
-            if (velocity.x <= maxSpeed)
+            velocity.x = velocity.x / 1.1f;
+            if (Mathf.Abs(velocity.x) < 0.01f)
             {
-                velocity.x += speed;
+                velocity.x = 0;
             }
-            if (velocity.x >= maxSpeed)
-            {
-                velocity.x = maxSpeed;
-            }
-            movingNow = true;
-        }
-        else if (Input.GetKey(Key.A)) ;
-        else movingNow = false;
-        if (Input.GetKeyDown(Key.SPACE) && jump > 0)
-        {
-            velocity.y -= jumpPow;
-            jump -= 1;
         }
     }
 }
