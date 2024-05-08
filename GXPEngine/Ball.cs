@@ -38,7 +38,7 @@ public class Ball : EasyDraw
 
     bool firstTime = true;
 
-    public Ball(int pRadius, Vec2 pPosition, Vec2 pVelocity = new Vec2(), Vec2 pGravity = new Vec2(), bool moving = true, bool pIsPlayer = false) : base(pRadius * 2 + 1, pRadius * 2 + 1)
+    public Ball(int pRadius, Vec2 pPosition, Vec2 pVelocity = new Vec2(),float density = 1, Vec2 pGravity = new Vec2(), bool moving = true, bool pIsPlayer = false) : base(pRadius * 2 + 1, pRadius * 2 + 1)
     {
         radius = pRadius;
         gravity = pGravity;
@@ -91,7 +91,6 @@ public class Ball : EasyDraw
                     ResolveCollision(firstCollision);
                 }
             }
-            Slowing();
         }
 
         UpdateScreenPosition();
@@ -218,38 +217,27 @@ public class Ball : EasyDraw
     {
         if (col.other is Ball)
         {
-            Ball otherBall = (Ball)col.other;
             position = PointOfImpact(col.timeOfImpact);
-            velocity.Reflect(col.normal.Normalized());
+            Ball otherBall = (Ball)col.other;
+            velocity.Reflect(col.normal.Normalized(), new Vec2(0, 0), 0.01f);
         }
         if (col.other is LineSegment)
         {
             position = PointOfImpact(col.timeOfImpact);
-            velocity.Reflect(col.normal.Normalized(), bounciness);
-            if (col.normal.x > -1 && col.normal.x < 1)
-            {
-                jump = 1;
-            }
+            velocity.Reflect(col.normal.Normalized(), new Vec2(0, 0), 0.5f);
         }
-        if (col.other is PlayerBall)
+        if (col.other is Rock)
         {
+            Ball otherBall = (Ball)col.other;
+            position = PointOfImpact(col.timeOfImpact);
+            Vec2 COM = (Mass * velocity + otherBall.Mass * otherBall.velocity) / (Mass + otherBall.Mass);
+            velocity.Reflect(col.normal.Normalized(), COM);
         }
         Bounce();
     }
     public virtual void Bounce()
     {
 
-    }
-    void Slowing()
-    {
-        if (!movingNow)
-        {
-            velocity.x = velocity.x / 1.1f;
-            if (Mathf.Abs(velocity.x) < 0.01f)
-            {
-                velocity.x = 0;
-            }
-        }
     }
 
 }
