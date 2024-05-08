@@ -17,7 +17,7 @@ public class PlayerBall : Ball
     float speed = 3;
     float maxSpeed = 6;
     float jumpPow = 15;
-    public PlayerBall(int pRadius, Vec2 pPosition, Vec2 pVelocity = default, Vec2 pGravity = default, bool moving = true, bool pIsPlayer = false) : base(pRadius, pPosition, pVelocity, pGravity, moving, pIsPlayer)
+    public PlayerBall(int pRadius, Vec2 pPosition, Vec2 pVelocity = default,float density = 1, Vec2 pGravity = default, bool moving = true, bool pIsPlayer = false) : base(pRadius, pPosition, pVelocity,density, pGravity, moving, pIsPlayer)
     {
     }
     void Update()

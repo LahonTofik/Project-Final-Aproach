@@ -15,7 +15,7 @@ public class Level : GameObject
         loader = new TiledLoader(filename);
         CreateLevel();
     }
-        void CreateLevel(bool IncludeImageLayer = true)
+    void CreateLevel(bool IncludeImageLayer = true)
     {
         loader.autoInstance = true;
         loader.rootObject = this;
@@ -28,6 +28,6 @@ public class Level : GameObject
         loader.addColliders = true;
         loader.LoadTileLayers(2); // platforms and walls (everything that is collidable)
         loader.LoadObjectGroups();
-
     }
+
 }
