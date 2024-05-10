@@ -8,16 +8,10 @@ using System.Threading.Tasks;
 
 public class PlayerBall : Ball
 {
-    Vec2 mouseStart;
-    Vec2 mouseEnd;
-    Vec2 mouseVel;
-    Vec2 mousePos;
-    float diff;
-    bool pressed = false;
     float speed = 3;
     float maxSpeed = 6;
     float jumpPow = 15;
-    public PlayerBall(int pRadius, Vec2 pPosition, Vec2 pVelocity = default,float density = 1, Vec2 pGravity = default, bool moving = true, bool pIsPlayer = false) : base(pRadius, pPosition, pVelocity,density, pGravity, moving, pIsPlayer)
+    public PlayerBall(int pRadius, Vec2 pPosition, Vec2 pVelocity = default, Vec2 pGravity = default, bool moving = true, bool pIsPlayer = false) : base(pRadius, pPosition, pVelocity, pGravity, moving, pIsPlayer)
     {
     }
     void Update()
@@ -26,31 +20,41 @@ public class PlayerBall : Ball
     }
     void MovePlayer()
     {
-        mousePos = new Vec2(Input.mouseX, Input.mouseY);
-        diff = (mousePos - position).Length();
-        if (Input.GetMouseButtonDown(0) && diff < radius)
+        if (Input.GetKey(Key.A))
         {
-            mouseStart = new Vec2(Input.mouseX, Input.mouseY);
-            pressed = true;
-        }
-        if (Input.GetMouseButtonUp(0) && pressed)
-        {
-            mouseEnd = new Vec2(Input.mouseX, Input.mouseY);
-            mouseVel = (mouseEnd - mouseStart);
-            velocity += mouseVel / 100;
-            pressed = false;
-        }
-        Slowing();
-    }
-    void Slowing()
-    {
-        if (!movingNow)
-        {
-            velocity.x = velocity.x / 1.1f;
-            if (Mathf.Abs(velocity.x) < 0.01f)
+            if (velocity.x >= -maxSpeed)
             {
-                velocity.x = 0;
+                velocity.x -= speed;
             }
+            if (velocity.x <= -maxSpeed)
+            {
+                velocity.x = -maxSpeed;
+            }
+            movingNow = true;
+        }
+        else if (Input.GetKey(Key.D)) ;
+        else
+        {
+            movingNow = false;
+        }
+        if (Input.GetKey(Key.D))
+        {
+            if (velocity.x <= maxSpeed)
+            {
+                velocity.x += speed;
+            }
+            if (velocity.x >= maxSpeed)
+            {
+                velocity.x = maxSpeed;
+            }
+            movingNow = true;
+        }
+        else if (Input.GetKey(Key.A)) ;
+        else movingNow = false;
+        if (Input.GetKeyDown(Key.SPACE) && jump > 0)
+        {
+            velocity.y -= jumpPow;
+            jump -= 1;
         }
     }
 }
