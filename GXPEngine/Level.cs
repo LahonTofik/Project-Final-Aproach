@@ -31,7 +31,7 @@ public class Level : GameObject
         loader.LoadTileLayers(); // background (skybox/ scenery)
         loader.LoadTileLayers(1); // background and props
         loader.addColliders = true;
-        loader.LoadTileLayers(2); // platforms and walls (everything that is collidable)
+        loader.LoadTileLayers(); // platforms and walls (everything that is collidable)
         loader.LoadObjectGroups();
         CreateCollisions();
     }
