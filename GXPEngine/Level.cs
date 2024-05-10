@@ -58,7 +58,7 @@ public class Level : GameObject
         }
 
     }
-    void HandleScroll()
+    /*void HandleScroll()
     {
         if (player == null) return;
         int boundarySizex = 300;
@@ -87,11 +87,11 @@ public class Level : GameObject
         if (-x >= game.width * 2) x = (game.width * -2);
         if (-y >= game.height) y = (game.height) * -1;
         if (y > 0) y = 0;
-    }
+    }*/
     void Update()
     {
-        HandleScroll();
-        GameBoundary();
+        /*HandleScroll();
+        GameBoundary();*/
         Console.WriteLine(game.height);
     }
 }

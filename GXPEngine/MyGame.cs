@@ -32,7 +32,7 @@ public class MyGame : Game
 	{
         _movers = new List<Ball>();
         _lines = new List<LineSegment>();
-        levels[0] = "TestLevel.tmx";
+        levels[0] = "Assets/lvl_design_v1.tmx";
 
 		LoadLevel(levels[0]);
 
