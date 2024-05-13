@@ -37,7 +37,7 @@ public class PlayerBall : Ball
         {
             mouseEnd = new Vec2(Input.mouseX, Input.mouseY);
             mouseVel = (mouseEnd - mouseStart);
-            velocity -= mouseVel / 20;
+            velocity -= mouseVel / 50;
             pressed = false;
         }
         Slowing();
