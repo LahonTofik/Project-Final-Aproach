@@ -13,7 +13,6 @@ public class PlayerBall : Ball
     Vec2 mouseEnd;
     Vec2 mouseVel;
     Vec2 mousePos;
-    float diff;
     bool pressed = false;
     float speed = 3;
     float maxSpeed = 6;
@@ -33,22 +32,44 @@ public class PlayerBall : Ball
         {
             mouseStart = new Vec2(Input.mouseX, Input.mouseY);
             pressed = true;
+
         }
         if (Input.GetMouseButtonUp(0) && pressed)
         {
             mouseEnd = new Vec2(Input.mouseX, Input.mouseY);
             mouseVel = (mouseEnd - mouseStart);
-            velocity -= mouseVel / 50;
+            mouseVel.y *= 2;
+            velocity -= mouseVel / 20;
             pressed = false;
+            _velocityIndicator.startPoint = new Vec2(0, 0);
+            _velocityIndicator.vector = new Vec2(0, 0);
         }
+        if (pressed)
+        {
+            _velocityIndicator.color = 0xffffffff;
+        }
+        else
+        {
+            _velocityIndicator.color = 0;
+        }
+        ShowDebugInfo();
         Slowing();
     }
     void Slowing()
     {
-            velocity.x = velocity.x / 1.01f;
-            if (Mathf.Abs(velocity.x) < 0.01f)
-            {
-                velocity.x = 0;
-            }
+        velocity.x = velocity.x / 1.01f;
+        if (Mathf.Abs(velocity.x) < 0.01f)
+        {
+            velocity.x = 0;
+        }
+    }
+    void ShowDebugInfo()
+    {
+        if (drawDebugLine)
+        {
+            ((MyGame)game).DrawLine(_oldPosition, position);
+        }
+        _velocityIndicator.startPoint = position;
+        _velocityIndicator.vector = (mousePos - position) * -1 / 20;
     }
 }

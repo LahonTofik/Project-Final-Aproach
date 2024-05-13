@@ -14,7 +14,7 @@ public struct Vec2
 
     public override string ToString()
     {
-        return String.Format("({0},{1})", x, y);
+        return String.Format("({0} {1})", x, y);
     }
 
     public void SetXY(float pX, float pY)

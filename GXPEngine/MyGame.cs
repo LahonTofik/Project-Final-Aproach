@@ -28,18 +28,18 @@ public class MyGame : Game
 	}
 
     Canvas _lineContainer = null;
-	public MyGame() : base(800, 600, false)     
+	public MyGame() : base(800, 800, false, false, 800, 800, false)     
 	{
         _movers = new List<Ball>();
         _lines = new List<LineSegment>();
         levels[0] = "Assets/lvl_design_v1.tmx";
-
+        targetFps = 60;
         LoadLevel(levels[0]);
         Ball.acceleration.SetXY(0, 0.75f);
     }
 
-    List<Ball> _movers;
-    List<LineSegment> _lines;
+    public List<Ball> _movers;
+    public List<LineSegment> _lines;
     EasyDraw congrats;
 	Font rowdies;
     void DestroyAllLevels()
@@ -50,20 +50,17 @@ public class MyGame : Game
             child.Destroy();
         }
     }
-    public void AddLine(Vec2 start, Vec2 end, bool specialCol = false, bool twosided = false, bool addcaps = false)
+    public void DrawLine(Vec2 start, Vec2 end)
     {
-        LineSegment line = new LineSegment(start, end, specialCol ? 0xffff00ff : 0xff00ff00, 4);
-        AddChild(line);
-        _lines.Add(line);
-        if (twosided) AddLine(end, start, true, false); // :-)
-        if (addcaps)
-        {
-            _movers.Add(new Ball(0, start, new Vec2(0, 0), 1, new Vec2(0, 0), false));
-            _movers.Add(new Ball(0, end, new Vec2(0, 0), 1, new Vec2(0, 0), false));
-        }
+        _lineContainer.graphics.DrawLine(Pens.White, start.x, start.y, end.x, end.y);
     }
 
     public void AddMover(Ball bullet)
+    {
+        _movers.Add(bullet);
+        AddChild(bullet);
+    }
+    public void AddPlayer(PlayerBall bullet)
     {
         _movers.Add(bullet);
         AddChild(bullet);
@@ -88,7 +85,7 @@ public class MyGame : Game
         if (Input.GetMouseButtonDown(1))
         {
             MousePos.SetXY(Input.mouseX, Input.mouseY);
-            AddMover(new Rock(5, MousePos, 0, default,5, new Vec2(0, 0.5f)));
+            AddMover(new Rock(5, MousePos, 0, default, 5, new Vec2(0, 0.5f)));
             Console.WriteLine("ball made");
         }
     }

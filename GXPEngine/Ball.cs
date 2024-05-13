@@ -9,9 +9,10 @@ using GXPEngine.Core;
 
 public class Ball : EasyDraw
 {
+    public static bool drawDebugLine = false;
     public static float bounciness = 0.4f;
     public static Vec2 acceleration = new Vec2(0, 0);
-
+    public Arrow _velocityIndicator;
     public float Mass
     {
         get
@@ -22,7 +23,7 @@ public class Ball : EasyDraw
 
     public Vec2 velocity;
     public Vec2 position;
-    Vec2 _oldPosition;
+    public Vec2 _oldPosition;
 
     public readonly int radius;
     public readonly bool moving;
@@ -41,6 +42,7 @@ public class Ball : EasyDraw
 
     public Ball(int pRadius, Vec2 pPosition, Vec2 pVelocity = new Vec2(),float density = 1, Vec2 pGravity = new Vec2(), bool moving = true, bool pIsPlayer = false) : base(pRadius * 2 + 1, pRadius * 2 + 1)
     {
+        _density = density;
         radius = pRadius;
         gravity = pGravity;
         position = pPosition;
@@ -53,6 +55,8 @@ public class Ball : EasyDraw
         SetOrigin(radius, radius);
 
         Draw(230, 200, 0);
+        _velocityIndicator = new Arrow(position, new Vec2(0, 0), 10);
+        AddChild(_velocityIndicator);
     }
 
     void Draw(byte red, byte green, byte blue)
@@ -74,8 +78,8 @@ public class Ball : EasyDraw
             velocity += gravity;
         else
             velocity += acceleration;
-            _oldPosition = position;
-            position += velocity;
+        _oldPosition = position;
+        position += velocity;
 
         CollisionInfo firstCollision = FindEarliestCollision();
         if (firstCollision != null)
@@ -219,20 +223,31 @@ public class Ball : EasyDraw
         if (col.other is Ball)
         {
             Ball otherBall = (Ball)col.other;
-            velocity.Reflect(col.normal.Normalized(), new Vec2(0, 0), 0.01f);
+            if (col.other is Rock && this is PlayerBall)
+            {
+                position = PointOfImpact(col.timeOfImpact);
+                Vec2 COM = (Mass * velocity + otherBall.Mass * otherBall.velocity) / (Mass + otherBall.Mass);
+                velocity.Reflect(col.normal.Normalized(), COM);
+            }
+            else
+            {
+                position = PointOfImpact(col.timeOfImpact);
+                velocity.Reflect(col.normal.Normalized(), new Vec2(0, 0), 0.01f);
+
+            }
         }
         if (col.other is LineSegment)
         {
             LineSegment line = (LineSegment)col.other;
             position = PointOfImpact(col.timeOfImpact);
             velocity.Reflect(col.normal.Normalized(), new Vec2(0, 0), 0.5f);
-        }
-        if (col.other is Rock && this is PlayerBall)
-        {
-            Ball otherBall = (Ball)col.other;
-            position = PointOfImpact(col.timeOfImpact);
-            Vec2 COM = (Mass * velocity + otherBall.Mass * otherBall.velocity) / (Mass + otherBall.Mass);
-            velocity.Reflect(col.normal.Normalized(), COM);
+            if (this is PlayerBall)
+            {
+                if (Input.GetMouseButtonDown(0) && diff < radius * 5)
+                {
+                    velocity.x = 0;
+                }
+            }
         }
         Bounce();
     }
@@ -240,6 +255,6 @@ public class Ball : EasyDraw
     {
 
     }
-
+    
 }
 

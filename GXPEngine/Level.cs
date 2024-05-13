@@ -20,6 +20,7 @@ public class Level : GameObject
         myGame = (MyGame)game;
         loader = new TiledLoader(filename);
         CreateLevel();
+        player = myGame.FindObjectOfType<PlayerBall>();
     }
     void CreateLevel(bool IncludeImageLayer = true)
     {
@@ -34,12 +35,16 @@ public class Level : GameObject
         loader.addColliders = true;
         loader.LoadTileLayers(); // platforms and walls (everything that is collidable)
         loader.LoadObjectGroups();
-        myGame.AddMover(new PlayerBall(10, new Vec2(192, 96), new Vec2(), 1, new Vec2(0, 0.05f), true, true));
+        myGame.AddPlayer(new PlayerBall(10, new Vec2(192, 96), new Vec2(), 1, new Vec2(0, 0.75f), true, true));
 
     }
-    /*void HandleScroll()
+    void HandleScroll()
     {
-        if (player == null) return;
+        if (player == null)
+        {
+            Console.WriteLine("ok");
+            return;
+        }
         int boundarySizex = 300;
         int boundarySizey = 200;
         if (player.x + x < boundarySizex)
@@ -66,7 +71,7 @@ public class Level : GameObject
         if (-x >= game.width * 2) x = (game.width * -2);
         if (-y >= game.height) y = (game.height) * -1;
         if (y > 0) y = 0;
-    }*/
+    }
     void Update()
     {
         HandleScroll();

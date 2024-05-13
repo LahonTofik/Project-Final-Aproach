@@ -22,12 +22,17 @@ namespace GXPEngine
 
 		public LineSegment (Vec2 pStart, Vec2 pEnd, uint pColor = 0xffffffff, uint pLineWidth = 1)
 		{
+			MyGame myGame = (MyGame)game;
             start = pStart;
 			end = pEnd;
 			color = pColor;
 			lineWidth = pLineWidth;
-		}
-	
+			Ball ball1 = new Ball(0, start, new Vec2(0, 0), 1, new Vec2(0, 0), false);
+			Ball ball2 = new Ball(0, end, new Vec2(0, 0), 1, new Vec2(0, 0), false);
+			myGame._movers.Add(new Ball(0, start, new Vec2(0, 0), 1, new Vec2(0, 0), false));
+            myGame._movers.Add(new Ball(0, end, new Vec2(0, 0), 1, new Vec2(0, 0), false));
+        }
+
 		//------------------------------------------------------------------------------------------------------------------------
 		//														RenderSelf()
 		//------------------------------------------------------------------------------------------------------------------------
