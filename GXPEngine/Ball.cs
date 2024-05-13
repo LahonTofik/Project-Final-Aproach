@@ -29,6 +29,7 @@ public class Ball : EasyDraw
 
     Vec2 gravity;
     float _density = 1;
+    public float diff;
 
     public bool movingNow = false;
     public bool isPlayer = false;
@@ -217,16 +218,16 @@ public class Ball : EasyDraw
     {
         if (col.other is Ball)
         {
-            position = PointOfImpact(col.timeOfImpact);
             Ball otherBall = (Ball)col.other;
             velocity.Reflect(col.normal.Normalized(), new Vec2(0, 0), 0.01f);
         }
         if (col.other is LineSegment)
         {
+            LineSegment line = (LineSegment)col.other;
             position = PointOfImpact(col.timeOfImpact);
             velocity.Reflect(col.normal.Normalized(), new Vec2(0, 0), 0.5f);
         }
-        if (col.other is Rock)
+        if (col.other is Rock && this is PlayerBall)
         {
             Ball otherBall = (Ball)col.other;
             position = PointOfImpact(col.timeOfImpact);

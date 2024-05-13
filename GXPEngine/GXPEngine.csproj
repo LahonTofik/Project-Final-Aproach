@@ -46,6 +46,7 @@
     <Compile Include="CollisionLine.cs" />
     <Compile Include="Components\Arrow.cs" />
     <Compile Include="Components\LineSegment.cs" />
+    <Compile Include="Cube.cs" />
     <Compile Include="GXPEngine\AddOns\Gizmos.cs" />
     <Compile Include="GXPEngine\AddOns\SpriteBatch.cs" />
     <Compile Include="GXPEngine\AddOns\TiledLoader.cs" />

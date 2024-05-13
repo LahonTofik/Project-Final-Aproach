@@ -13,10 +13,11 @@ using GXPEngine.OpenGL;
 public class Level : GameObject
 {
     MyGame myGame;
-    private PlayerBall player;
+    PlayerBall player;
     readonly TiledLoader loader;
     public Level(string filename)
     {
+        myGame = (MyGame)game;
         loader = new TiledLoader(filename);
         CreateLevel();
     }
@@ -33,29 +34,7 @@ public class Level : GameObject
         loader.addColliders = true;
         loader.LoadTileLayers(2); // platforms and walls (everything that is collidable)
         loader.LoadObjectGroups();
-        CreateCollisions();
-    }
-    void CreateCollisions()
-    {
-        CollisionLine[] lines = FindObjectsOfType<CollisionLine>();
-        foreach (var line in lines)
-        {
-            CollisionLine cLine = line as CollisionLine;
-            var corners = cLine.GetExtents();
-
-            for (int i = 0; 0 <= corners.Length; i++)
-            {
-                if (i != corners.Length)
-                {
-                    // top line
-                    myGame.AddChild(new LineSegment(new Vec2(corners[i].x, corners[i].y), new Vec2(corners[i + 1].x, corners[i + 1].y)));
-                }
-                else
-                {
-                    myGame.AddChild(new LineSegment(new Vec2(corners[i].x, corners[i].y), new Vec2(corners[0].x, corners[0].y)));
-                }
-            }
-        }
+        myGame.AddMover(new PlayerBall(10, new Vec2(192, 96), new Vec2(), 1, new Vec2(0, 0.05f), true, true));
 
     }
     void HandleScroll()
@@ -92,6 +71,5 @@ public class Level : GameObject
     {
         HandleScroll();
         GameBoundary();
-        Console.WriteLine(game.height);
     }
 }

@@ -37,20 +37,17 @@ public class PlayerBall : Ball
         {
             mouseEnd = new Vec2(Input.mouseX, Input.mouseY);
             mouseVel = (mouseEnd - mouseStart);
-            velocity += mouseVel / 100;
+            velocity -= mouseVel / 20;
             pressed = false;
         }
         Slowing();
     }
     void Slowing()
     {
-        if (!movingNow)
-        {
-            velocity.x = velocity.x / 1.1f;
+            velocity.x = velocity.x / 1.01f;
             if (Mathf.Abs(velocity.x) < 0.01f)
             {
                 velocity.x = 0;
             }
-        }
     }
 }

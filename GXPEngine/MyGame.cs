@@ -32,11 +32,11 @@ public class MyGame : Game
 	{
         _movers = new List<Ball>();
         _lines = new List<LineSegment>();
-        levels[0] = "TestLevel.tmx";
+        levels[0] = "Assets/lvl_design_v1.tmx";
 
-		LoadLevel(levels[0]);
-
-	}
+        LoadLevel(levels[0]);
+        Ball.acceleration.SetXY(0, 0.75f);
+    }
 
     List<Ball> _movers;
     List<LineSegment> _lines;
@@ -48,6 +48,18 @@ public class MyGame : Game
         foreach (GameObject child in children)
         {
             child.Destroy();
+        }
+    }
+    public void AddLine(Vec2 start, Vec2 end, bool specialCol = false, bool twosided = false, bool addcaps = false)
+    {
+        LineSegment line = new LineSegment(start, end, specialCol ? 0xffff00ff : 0xff00ff00, 4);
+        AddChild(line);
+        _lines.Add(line);
+        if (twosided) AddLine(end, start, true, false); // :-)
+        if (addcaps)
+        {
+            _movers.Add(new Ball(0, start, new Vec2(0, 0), 1, new Vec2(0, 0), false));
+            _movers.Add(new Ball(0, end, new Vec2(0, 0), 1, new Vec2(0, 0), false));
         }
     }
 

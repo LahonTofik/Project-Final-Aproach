@@ -18,11 +18,11 @@ namespace GXPEngine
 		public LineSegment (float pStartX, float pStartY, float pEndX, float pEndY, uint pColor = 0xffffffff, uint pLineWidth = 1)
 			: this (new Vec2 (pStartX, pStartY), new Vec2 (pEndX, pEndY), pColor, pLineWidth)
 		{
-		}
+        }
 
 		public LineSegment (Vec2 pStart, Vec2 pEnd, uint pColor = 0xffffffff, uint pLineWidth = 1)
 		{
-			start = pStart;
+            start = pStart;
 			end = pEnd;
 			color = pColor;
 			lineWidth = pLineWidth;
