@@ -32,12 +32,12 @@ public class Level : GameObject
         loader.LoadTileLayers(); // background (skybox/ scenery)
         loader.LoadTileLayers(1); // background and props
         loader.addColliders = true;
-        loader.LoadTileLayers(2); // platforms and walls (everything that is collidable)
+        loader.LoadTileLayers(); // platforms and walls (everything that is collidable)
         loader.LoadObjectGroups();
         myGame.AddMover(new PlayerBall(10, new Vec2(192, 96), new Vec2(), 1, new Vec2(0, 0.05f), true, true));
 
     }
-    void HandleScroll()
+    /*void HandleScroll()
     {
         if (player == null) return;
         int boundarySizex = 300;
@@ -66,7 +66,7 @@ public class Level : GameObject
         if (-x >= game.width * 2) x = (game.width * -2);
         if (-y >= game.height) y = (game.height) * -1;
         if (y > 0) y = 0;
-    }
+    }*/
     void Update()
     {
         HandleScroll();
