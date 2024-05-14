@@ -6,6 +6,7 @@ using System.Threading;
 
 public class MyGame : Game
 {
+    PlayerBall player;
     bool _stepped = false;
     Vec2 MousePos;
     bool _paused = false;
@@ -19,13 +20,34 @@ public class MyGame : Game
 	public int GetCurrentLevel()
 	{
 		return currentLevel;
-	}
-	public void SetCurrentLevel(int _value)
-	{
-		currentLevel = _value;
-		if (currentLevel >= 4) { currentLevel = 0; }
-		LoadLevel(levels[currentLevel]);
-	}
+    }
+    public void SetCurrentLevel(int _value)
+    {
+        currentLevel = _value;
+        if (currentLevel >= 4) { currentLevel = 0; }
+        LoadLevel(levels[currentLevel]);
+    }
+
+    public int GetNumberOfLines()
+    {
+        return _lines.Count;
+    }
+
+    public LineSegment GetLine(int index)
+    {
+        if (index >= 0 && index < _lines.Count)
+        {
+            return _lines[index];
+        }
+        return null;
+    }
+    public void AddLine(Vec2 start, Vec2 end, bool specialCol = false, bool twosided = false, bool addcaps = false)
+    {
+        LineSegment line = new LineSegment(start, end, specialCol ? 0xffff00ff : 0xff00ff00, 4);
+        AddChild(line);
+        _lines.Add(line);
+        if (twosided) AddLine(end, start, true, false); // :-)
+    }
 
     Canvas _lineContainer = null;
 	public MyGame() : base(800, 800, false, false, 800, 800, false)     
@@ -35,6 +57,7 @@ public class MyGame : Game
         levels[0] = "Assets/lvl_design_v1.tmx";
         targetFps = 60;
         LoadLevel(levels[0]);
+        player = FindObjectOfType<PlayerBall>();
         Ball.acceleration.SetXY(0, 0.75f);
     }
 
@@ -82,7 +105,7 @@ public class MyGame : Game
         {
             StepThroughMovers();
         }
-        if (Input.GetMouseButtonDown(1))
+        if (Input.GetMouseButtonDown(1) && !player.pressed)
         {
             MousePos.SetXY(Input.mouseX, Input.mouseY);
             AddMover(new Rock(5, MousePos, 0, default, 5, new Vec2(0, 0.5f)));
@@ -93,19 +116,6 @@ public class MyGame : Game
     public void RemoveMover(Ball ball)
     {
         _movers.Remove(ball);
-    }
-    public int GetNumberOfLines()
-    {
-        return _lines.Count;
-    }
-
-    public LineSegment GetLine(int index)
-    {
-        if (index >= 0 && index < _lines.Count)
-        {
-            return _lines[index];
-        }
-        return null;
     }
 
     public int GetNumberOfMovers()

@@ -90,6 +90,7 @@
     <Compile Include="GXPEngine\FMOD\FMODSoundSystem.cs" />
     <Compile Include="GXPEngine\SoLoud\Soloud.cs" />
     <Compile Include="GXPEngine\SoLoud\SoloudSoundSystem.cs" />
+    <Compile Include="Peng.cs" />
     <Compile Include="PlayerBall.cs" />
     <Compile Include="Rock.cs" />
     <Compile Include="Vec2.cs" />

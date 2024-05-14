@@ -46,7 +46,7 @@ public class Level : GameObject
             return;
         }
         int boundarySizex = 300;
-        int boundarySizey = 200;
+        int boundarySizey = 500;
         if (player.x + x < boundarySizex)
         {
             x = boundarySizex - player.x;
@@ -72,6 +72,8 @@ public class Level : GameObject
         if (-y >= game.height) y = (game.height) * -1;
         if (y > 0) y = 0;
     }
+
+
     void Update()
     {
         HandleScroll();

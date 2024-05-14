@@ -9,16 +9,23 @@ using TiledMapParser;
 
 public class PlayerBall : Ball
 {
+    public bool pressed = false;
+    MyGame myGame;
+    Peng peng;
     Vec2 mouseStart;
     Vec2 mouseEnd;
     Vec2 mouseVel;
     Vec2 mousePos;
-    bool pressed = false;
     float speed = 3;
     float maxSpeed = 6;
     float jumpPow = 15;
     public PlayerBall(int pRadius, Vec2 pPosition, Vec2 pVelocity = default,float density = 1, Vec2 pGravity = default, bool moving = true, bool pIsPlayer = false) : base(pRadius, pPosition, pVelocity,density, pGravity, moving, pIsPlayer)
     {
+        myGame = (MyGame)game;
+        peng = new Peng("Assets/rolling.png",3,2);
+        peng.SetOrigin(this.width+350,this.height+450);
+        AddChild(peng);
+        peng.scale = 0.1f;
     }
     void Update()
     {
@@ -51,6 +58,26 @@ public class PlayerBall : Ball
         else
         {
             _velocityIndicator.color = 0;
+        }
+        if (velocity.x > 0)
+        {
+            peng.SetOrigin(this.width + 355, this.height + 455);
+            peng.Mirror(false, false);
+            peng.SetCycle(1, 5);
+            if (peng.currentFrame != 5)
+                peng.Animate(0.1f);
+            if (peng.currentFrame == 5)
+                peng.rotation += velocity.x;
+        }
+        else if (velocity.x < 0) 
+        {
+            peng.SetOrigin(this.width + 245, this.height + 445);
+            peng.Mirror(true, false);
+            peng.SetCycle(1, 5);
+            if (peng.currentFrame != 5)
+                peng.Animate(0.1f);
+            if (peng.currentFrame == 5)
+                peng.rotation += velocity.x;
         }
         ShowDebugInfo();
         Slowing();

@@ -9,6 +9,7 @@ using GXPEngine.Core;
 
 public class Ball : EasyDraw
 {
+    Cube cube;
     public static bool drawDebugLine = false;
     public static float bounciness = 0.4f;
     public static Vec2 acceleration = new Vec2(0, 0);
@@ -57,6 +58,7 @@ public class Ball : EasyDraw
         Draw(230, 200, 0);
         _velocityIndicator = new Arrow(position, new Vec2(0, 0), 10);
         AddChild(_velocityIndicator);
+        Cube[] cube = FindObjectsOfType<Cube>();
     }
 
     void Draw(byte red, byte green, byte blue)
