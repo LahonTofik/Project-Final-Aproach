@@ -61,7 +61,7 @@ public class PlayerBall : Ball
         }
         if (velocity.x > 0)
         {
-            peng.SetOrigin(this.width + 355, this.height + 455);
+            peng.SetOrigin(this.width + 340, this.height + 427);
             peng.Mirror(false, false);
             peng.SetCycle(1, 5);
             if (peng.currentFrame != 5)
@@ -71,7 +71,7 @@ public class PlayerBall : Ball
         }
         else if (velocity.x < 0) 
         {
-            peng.SetOrigin(this.width + 245, this.height + 445);
+            peng.SetOrigin(this.width + 220, this.height + 425);
             peng.Mirror(true, false);
             peng.SetCycle(1, 5);
             if (peng.currentFrame != 5)
