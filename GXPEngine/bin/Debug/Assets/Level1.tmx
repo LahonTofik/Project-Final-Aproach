@@ -50,6 +50,5 @@
   <object id="20" type="Cube" x="1600" y="320" width="448" height="64"/>
   <object id="21" type="Cube" x="2368" y="512" width="640" height="64"/>
   <object id="22" type="Cube" x="2368" y="512" width="64" height="384"/>
-  <object id="25" name="bulldozer" x="1396.97" y="657.576" width="596.97" height="375.758"/>
  </objectgroup>
 </map>
