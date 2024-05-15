@@ -17,6 +17,8 @@ public class MyGame : Game
 
 	public bool nextLevel = false;
 
+    public EasyDraw colliderHolder;
+
 	public int GetCurrentLevel()
 	{
 		return currentLevel;
@@ -43,9 +45,14 @@ public class MyGame : Game
     }
     public void AddLine(Vec2 start, Vec2 end, bool specialCol = false, bool twosided = false, bool addcaps = false)
     {
+        if (colliderHolder == null)
+        {
+            colliderHolder = new EasyDraw(10, 10, false);
+        }
         LineSegment line = new LineSegment(start, end, specialCol ? 0xffff00ff : 0xff00ff00, 4);
         AddChild(line);
         _lines.Add(line);
+
         if (twosided) AddLine(end, start, true, false); // :-)
     }
 
@@ -59,6 +66,7 @@ public class MyGame : Game
         LoadLevel(levels[0]);
         player = FindObjectOfType<PlayerBall>();
         Ball.acceleration.SetXY(0, 0.75f);
+        
     }
 
     public List<Ball> _movers;

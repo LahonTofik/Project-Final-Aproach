@@ -15,12 +15,14 @@ public class Level : GameObject
     MyGame myGame;
     PlayerBall player;
     readonly TiledLoader loader;
+    float prevX;
     public Level(string filename)
     {
         myGame = (MyGame)game;
         loader = new TiledLoader(filename);
         CreateLevel();
         player = myGame.FindObjectOfType<PlayerBall>();
+        //game.AddChild(myGame.colliderHolder);
     }
     void CreateLevel(bool IncludeImageLayer = true)
     {
@@ -38,15 +40,14 @@ public class Level : GameObject
         myGame.AddPlayer(new PlayerBall(10, new Vec2(192, 96), new Vec2(), 1, new Vec2(0, 0.75f), true, true));
 
     }
-    void HandleScroll()
+    /*void HandleScroll()
     {
         if (player == null)
         {
             Console.WriteLine("ok");
             return;
         }
-        int boundarySizex = 300;
-        int boundarySizey = 500;
+        int boundarySizex = 500;
         if (player.x + x < boundarySizex)
         {
             x = boundarySizex - player.x;
@@ -55,20 +56,24 @@ public class Level : GameObject
         {
             x = game.width - boundarySizex - player.x;
         }
-        if (player.y + y < boundarySizey)
+        if (prevX != x)
         {
-            y = boundarySizey - player.y;
+            Console.WriteLine("ok");
+            float diff = x - prevX;
+            foreach (LineSegment line in myGame._lines)
+            {
+                line.start.x += diff;
+                line.end.x += diff;
+            }
+
         }
-        if (player.y + y > game.height - boundarySizey)
-        {
-            y = game.height - boundarySizey - player.y;
-        }
-    }
+        prevX = x;
+    }*/
     void GameBoundary()
     {
         if (player == null) return;
         if (x > 0) x = 0;
-        if (-x >= game.width * 2) x = (game.width * -2);
+        if (-x >= game.width*5) x = (game.width*-5);
         if (-y >= game.height) y = (game.height) * -1;
         if (y > 0) y = 0;
     }
@@ -76,7 +81,7 @@ public class Level : GameObject
 
     void Update()
     {
-        HandleScroll();
+        /*HandleScroll();*/
         GameBoundary();
     }
 }

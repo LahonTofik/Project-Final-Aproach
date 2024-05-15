@@ -65,19 +65,25 @@ public class PlayerBall : Ball
             peng.Mirror(false, false);
             peng.SetCycle(1, 5);
             if (peng.currentFrame != 5)
-                peng.Animate(0.1f);
+                peng.Animate(0.3f);
             if (peng.currentFrame == 5)
                 peng.rotation += velocity.x;
         }
-        else if (velocity.x < 0) 
+        if (velocity.x < 0)
         {
             peng.SetOrigin(this.width + 220, this.height + 425);
             peng.Mirror(true, false);
             peng.SetCycle(1, 5);
             if (peng.currentFrame != 5)
-                peng.Animate(0.1f);
+                peng.Animate(0.3f);
             if (peng.currentFrame == 5)
                 peng.rotation += velocity.x;
+        }
+        else if(velocity.x == 0)
+        {
+            peng.rotation = 0;
+            peng.SetCycle(0, 5);
+            peng.Animate(-0.3f);
         }
         ShowDebugInfo();
         Slowing();
