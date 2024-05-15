@@ -23,10 +23,10 @@ public class Cube : AnimationSprite
     void CreateCollisions()
     {
        // Console.WriteLine(tiledObject.X);
-        myGame.AddLine(new Vec2(tiledObject.X, tiledObject.Y - tiledObject.Height), new Vec2(tiledObject.X + tiledObject.Width, tiledObject.Y - tiledObject.Height), true, true, true);//left top to right top
-        myGame.AddLine(new Vec2(tiledObject.X, tiledObject.Y - tiledObject.Height), new Vec2(tiledObject.X, tiledObject.Y), true, true, true);//left top to left bot
+        myGame.AddLine(new Vec2(tiledObject.X, tiledObject.Y - tiledObject.Height-5), new Vec2(tiledObject.X + tiledObject.Width, tiledObject.Y - tiledObject.Height-5), true, true, true);//left top to right top
+        myGame.AddLine(new Vec2(tiledObject.X, tiledObject.Y - tiledObject.Height-5), new Vec2(tiledObject.X, tiledObject.Y), true, true, true);//left top to left bot
         myGame.AddLine(new Vec2(tiledObject.X, tiledObject.Y), new Vec2(tiledObject.X + tiledObject.Width, tiledObject.Y), true, true, true);//left bpt to right bort
-        myGame.AddLine(new Vec2(tiledObject.X + tiledObject.Width, tiledObject.Y - tiledObject.Height), new Vec2(tiledObject.X + tiledObject.Width, tiledObject.Y), true, true, true);//right bot to right top
+        myGame.AddLine(new Vec2(tiledObject.X + tiledObject.Width, tiledObject.Y - tiledObject.Height-5), new Vec2(tiledObject.X + tiledObject.Width, tiledObject.Y), true, true, true);//right bot to right top
     }
     /*public int GetNumberOfLines()
     {
