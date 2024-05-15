@@ -169,9 +169,15 @@ public class Ball : EasyDraw
         for (int i = 0; i < myGame.GetNumberOfLines(); i++)
         {
             LineSegment _lineSegment = myGame.GetLine(i);
-            if (Input.GetKey(Key.LEFT_SHIFT))
+            if (Input.GetKey(Key.LEFT))
             {
-                Console.WriteLine("Checking line {0}", i);
+               // Console.WriteLine("Checking line {0}", i);
+                if (i == 0)
+                {
+                    Console.WriteLine("x of the line:" + _lineSegment.x.ToString());
+                    Console.WriteLine("start x of the line:"+_lineSegment.start.x);
+                    Console.WriteLine("end x of the line:"+ _lineSegment.end.x);
+                }
             }
             Vec2 lineVector = _lineSegment.end - _lineSegment.start;
             Vec2 difference = _oldPosition - _lineSegment.start;
