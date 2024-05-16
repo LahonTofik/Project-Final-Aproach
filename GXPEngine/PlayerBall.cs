@@ -33,6 +33,7 @@ public class PlayerBall : Ball
     void Update()
     {
         MovePlayer();
+        if(myGame.currentLevel ==2)
         CheckPaper();
 
     }

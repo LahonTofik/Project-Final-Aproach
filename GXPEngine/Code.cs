@@ -120,7 +120,7 @@ public class Code : AnimationSprite
     void Conv()
     {
         timer--;
-        if (timer < 0)
+        if (timer < 0 || code.Count >3)
         {
             code.Clear();
             timer = 300;

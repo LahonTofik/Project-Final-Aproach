@@ -37,11 +37,16 @@ public class Turret : Sprite
                 targetAngle = direction.GetAngleDegrees();
             }
         }
-        if (code == null)
+        if (myGame.currentLevel == 2)
         {
-            code = myGame.FindObjectOfType<Code>();
+            if (code == null)
+            {
+                code = myGame.FindObjectOfType<Code>();
+            }
+            if (!code.paper)
+                timer -= Time.deltaTime;
         }
-        if (!code.paper)
+        else
         timer -= Time.deltaTime;
         if (timer <= 0)
         {
