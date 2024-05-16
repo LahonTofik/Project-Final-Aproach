@@ -11,7 +11,7 @@
  </imagelayer>
  <objectgroup id="3" name="Object Layer 1">
   <object id="38" type="Cube" gid="4178" x="0" y="1152" width="3584.1" height="64"/>
-  <object id="39" type="PlayerSpawner" gid="4178" x="192" y="1024" width="64" height="64">
+  <object id="39" type="PlayerSpawner" gid="4178" x="192" y="1088" width="64" height="64">
    <properties>
     <property name="isPlayer" type="bool" value="true"/>
     <property name="isTurret" type="bool" value="false"/>
@@ -43,7 +43,6 @@
   <object id="61" type="Cube" gid="4032" x="1280" y="960" width="256.666" height="64"/>
   <object id="62" type="Cube" gid="4032" x="0" y="704" width="256.666" height="64"/>
   <object id="63" type="Cube" gid="4032" x="640.25" y="1024" width="127.749" height="64"/>
-  <object id="65" type="Code" gid="3737" x="896" y="192" width="64" height="64"/>
   <object id="66" name="Lever" type="DoorSwitch" x="2816" y="192" width="64" height="64"/>
   <object id="72" type="LevelTeleport" x="3200" y="1024" width="64" height="64"/>
  </objectgroup>

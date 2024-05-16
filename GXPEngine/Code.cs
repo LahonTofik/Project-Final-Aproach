@@ -1,6 +1,7 @@
 ﻿using GXPEngine;
 using GXPEngine.Core;
 using System;
+using System.CodeDom;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Dynamic;
@@ -13,6 +14,7 @@ using TiledMapParser;
 public class Code : AnimationSprite
 {
     List<char> code;
+    public bool open = false;
     public string numb;
     public bool paper;
     TiledObject tiledObject;
@@ -129,7 +131,18 @@ public class Code : AnimationSprite
         numb = new string(code.ToArray());
         if (numb == "371")
         {
-            Console.WriteLine("fr");
+            open = true;
+            if (player == null)
+            {
+                player = mygame.FindObjectOfType<PlayerBall>();
+            }
+            papers.Remove();
+            code.Clear();
+            coding.ClearTransparent();
+            shown = false;
+            player.position.x = position.x - 10;
+            position = new Vec2(-500, -500);
+            this.Remove();
         }
     }
 

@@ -7,6 +7,7 @@ using System.Threading;
 public class MyGame : Game
 {
     PlayerBall player;
+    public int moves = 35;
     public List<Turret> turret;
     bool _stepped = false;
     Vec2 MousePos;
@@ -14,7 +15,7 @@ public class MyGame : Game
     int _stepIndex = 0;
     int _startSceneNumber = 0;
     public int currentLevel = 0; // levels start from level 0
-    public string[] levels = new string[3]; // amount of levels is 1
+    public string[] levels = new string[4]; // amount of levels is 1
 
     public bool nextLevel = false;
 
@@ -66,9 +67,10 @@ public class MyGame : Game
         _movers = new List<Ball>();
         _lines = new List<LineSegment>();
         turret = new List<Turret>();
-        levels[0] = "Assets/Level1.tmx";
-        levels[1] = "Assets/Level2.tmx";
-        levels[2] = "Assets/Level3.tmx";
+        levels[0] = "Assets/Start.tmx";
+        levels[1] = "Assets/Level1.tmx";
+        levels[2] = "Assets/Level2.tmx";
+        levels[3] = "Assets/Level3.tmx";
         targetFps = 60;
         LoadLevel(levels[0]);
         player = FindObjectOfType<PlayerBall>();
@@ -134,9 +136,8 @@ public class MyGame : Game
     {
         if (Input.GetKeyUp(Key.P))
         {
-            if (currentLevel <= 2)
+            if (currentLevel <= 3)
             {
-                nextLevel = true;
                 currentLevel++;
                 LoadLevel(levels[currentLevel]);
             }
@@ -145,10 +146,19 @@ public class MyGame : Game
         {
             if (currentLevel != 0)
             {
-                nextLevel = true;
                 currentLevel--;
                 LoadLevel(levels[currentLevel]);
             }
+        }
+        if (nextLevel)
+        {
+            currentLevel++;
+            LoadLevel(levels[currentLevel]);
+            nextLevel = false;
+        }
+        if (currentLevel == 0 && Input.GetMouseButton(0))
+        {
+            nextLevel = true;
         }
 
         if (!_paused)

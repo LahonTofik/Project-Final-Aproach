@@ -11,9 +11,13 @@ using TiledMapParser;
 public class PlayerBall : Ball
 {
     public bool pressed = false;
+    Door door;
     MyGame myGame;
     Peng peng;
     Code code;
+    List<CodePiece> piece;
+    AddMoves move;
+    NextLev lev;
     DoorSwitch doorSwitch;
     LevelTeleport levelTeleport;
     Vec2 mouseStart;
@@ -31,21 +35,49 @@ public class PlayerBall : Ball
     public PlayerBall(int pRadius, Vec2 pPosition, Vec2 pVelocity = default, float density = 1, Vec2 pGravity = default, bool moving = true, bool pIsPlayer = false) : base(pRadius, pPosition, pVelocity, density, pGravity, moving, pIsPlayer)
     {
         myGame = (MyGame)game;
+        piece = new List<CodePiece>();
         peng = new Peng("Assets/rolling.png", 3, 2);
         peng.SetOrigin(this.width + 350, this.height + 450);
+        piece = myGame.FindObjectsOfType<CodePiece>().ToList();
         AddChild(peng);
         peng.scale = 0.1f;
     }
     void Update()
     {
         MovePlayer();
-        if (myGame.currentLevel == 0)
+        if (myGame.currentLevel == 3)
+        CheckPaper();
+        if(myGame.currentLevel == 2)
+        {
+            if (move == null)
+            {
+                move = myGame.FindObjectOfType<AddMoves>();
+            }
+            if (position.x > move.position.x
+            && position.x < (move.position.x + move.width)
+            && position.y > (move.position.y - move.height)
+            && position.y < move.position.y)
+            {
+                myGame.moves += 50;
+                move.Bye();
+            }
+            if (lev == null)
+            {
+                lev = myGame.FindObjectOfType<NextLev>();
+            }
+            if (position.x > lev.position.x
+            && position.x < (lev.position.x + lev.width)
+            && position.y > (lev.position.y - lev.height)
+            && position.y < lev.position.y)
+            {
+                myGame.nextLevel = true;
+            }
+        }
+        if (myGame.currentLevel == 1)
         {
             SwitchCollision();
             LevelTeleport();
         }
-        if (myGame.currentLevel == 2)
-            CheckPaper();
 
     }
 
@@ -92,12 +124,37 @@ public class PlayerBall : Ball
             velocity.x = 0;
         }
         else code.paper = false;
-    }
+        foreach (CodePiece piece in piece)
+        {
+            if (position.x > piece.position.x - radius * 10
+                && position.x < (piece.position.x + code.width + radius * 10)
+                && position.y > (piece.position.y - code.height - radius * 10)
+                && position.y < piece.position.y + radius * 10)
+            {
+                piece.paper = true;
+            }
+            else
+            {
+                piece.paper = false;
+            }
+        }
+        if (door == null)
+        {
+            door = myGame.FindObjectOfType<Door>();
+        }
+        if (position.x > door.position.x
+            && position.x < (door.position.x + door.width)
+            && position.y > (door.position.y - door.height)
+            && position.y < door.position.y)
+        {
+            position.x   = door.position.x - 50f;
+        }
+        }
     void MovePlayer()
     {
         mousePos = new Vec2(Input.mouseX, Input.mouseY);
         diff = (mousePos - position).Length();
-        if (Input.GetMouseButtonDown(0) && diff < radius)
+        if (Input.GetMouseButtonDown(0) && diff < radius && myGame.moves >0)
         {
             mouseStart = new Vec2(Input.mouseX, Input.mouseY);
             pressed = true;
@@ -109,6 +166,7 @@ public class PlayerBall : Ball
             mouseVel = (mouseEnd - mouseStart);
             mouseVel.y *= 2;
             velocity -= mouseVel / 20;
+            myGame.moves--;
             pressed = false;
             _velocityIndicator.startPoint = new Vec2(0, 0);
             _velocityIndicator.vector = new Vec2(0, 0);
@@ -166,4 +224,5 @@ public class PlayerBall : Ball
         _velocityIndicator.startPoint = position;
         _velocityIndicator.vector = (mousePos - position) * -1 / 20;
     }
+
 }
