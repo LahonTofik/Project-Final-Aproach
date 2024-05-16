@@ -9,7 +9,9 @@
  <tileset firstgid="7455" name="Full game tiled sheet" tilewidth="64" tileheight="64" tilecount="7450" columns="149">
   <image source="Full_Game_tilesheet.png" width="9536" height="3200"/>
  </tileset>
- <tileset firstgid="14905" source="Full game tiled sheet.tsx"/>
+ <tileset firstgid="14905" name="Full game tiled sheet" tilewidth="64" tileheight="64" tilecount="7450" columns="149">
+  <image source="Full_Game_tilesheet.png" width="9536" height="3200"/>
+ </tileset>
  <imagelayer id="3" name="Image Layer 1" offsetx="-2816" offsety="0">
   <image source="background.png" width="9536" height="1216"/>
  </imagelayer>

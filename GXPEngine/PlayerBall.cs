@@ -25,6 +25,9 @@ public class PlayerBall : Ball
     float maxSpeed = 6;
     float jumpPow = 15;
     bool leverOpen = false;
+
+    private Sound leverSwitched = new Sound("Assets/sfx_pulling_lever.wav");
+
     public PlayerBall(int pRadius, Vec2 pPosition, Vec2 pVelocity = default, float density = 1, Vec2 pGravity = default, bool moving = true, bool pIsPlayer = false) : base(pRadius, pPosition, pVelocity, density, pGravity, moving, pIsPlayer)
     {
         myGame = (MyGame)game;
@@ -55,6 +58,7 @@ public class PlayerBall : Ball
             && position.y > (doorSwitch.position.y - doorSwitch.height)
             && position.y < doorSwitch.position.y)
         {
+            leverSwitched.Play();
             leverOpen = true;
             doorSwitch.SwitchIsOpen(leverOpen);
             levelTeleport.DoorIsOpen(leverOpen);
