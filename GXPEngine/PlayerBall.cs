@@ -79,11 +79,10 @@ public class PlayerBall : Ball
             if (peng.currentFrame == 5)
                 peng.rotation += velocity.x;
         }
-        else if(velocity.x == 0)
+        if(velocity.x == 0)
         {
             peng.rotation = 0;
-            peng.SetCycle(0, 5);
-            peng.Animate(-0.3f);
+            peng.SetCycle(0, 1);
         }
         ShowDebugInfo();
         Slowing();

@@ -238,7 +238,15 @@ public class Ball : EasyDraw
         if (col.other is Ball)
         {
             Ball otherBall = (Ball)col.other;
-            if (col.other is Rock && this is PlayerBall)
+            if (col.other is Bullet && this is PlayerBall)
+            {
+                this.velocity.x = 0;
+            }
+            else if(col.other is PlayerBall && this is Bullet)
+            {
+                otherBall.velocity.x = 0;
+            }
+            else if (col.other is Rock && this is PlayerBall)
             {
                 position = PointOfImpact(col.timeOfImpact);
                 Vec2 COM = (Mass * velocity + otherBall.Mass * otherBall.velocity) / (Mass + otherBall.Mass);
@@ -250,6 +258,8 @@ public class Ball : EasyDraw
                 velocity.Reflect(col.normal.Normalized(), new Vec2(0, 0), 0.01f);
 
             }
+            
+            
         }
         if (col.other is LineSegment)
         {

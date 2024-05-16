@@ -44,7 +44,6 @@
     <Compile Include="Ball.cs" />
     <Compile Include="Bullet.cs" />
     <Compile Include="CollisionInfo.cs" />
-    <Compile Include="CollisionLine.cs" />
     <Compile Include="Components\Arrow.cs" />
     <Compile Include="Components\LineSegment.cs" />
     <Compile Include="Cube.cs" />
