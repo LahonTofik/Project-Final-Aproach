@@ -8,7 +8,7 @@ using TiledMapParser;
 
 class DoorSwitch : AnimationSprite
 {
-    public DoorSwitch(TiledObject obj = null) : base("",2,1)
+    public DoorSwitch(TiledObject obj = null) : base("Assets/",2,1)
     {
 
     }
