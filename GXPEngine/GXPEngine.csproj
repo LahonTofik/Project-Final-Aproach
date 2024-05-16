@@ -41,13 +41,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddMoves.cs" />
     <Compile Include="Ball.cs" />
     <Compile Include="Bullet.cs" />
     <Compile Include="Code.cs" />
+    <Compile Include="CodePiece.cs" />
     <Compile Include="CollisionInfo.cs" />
     <Compile Include="Components\Arrow.cs" />
     <Compile Include="Components\LineSegment.cs" />
     <Compile Include="Cube.cs" />
+    <Compile Include="Door.cs" />
     <Compile Include="DoorSwitch.cs" />
     <Compile Include="GXPEngine\AddOns\Gizmos.cs" />
     <Compile Include="GXPEngine\AddOns\SpriteBatch.cs" />
@@ -92,6 +95,7 @@
     <Compile Include="GXPEngine\FMOD\FMODSoundSystem.cs" />
     <Compile Include="GXPEngine\SoLoud\Soloud.cs" />
     <Compile Include="GXPEngine\SoLoud\SoloudSoundSystem.cs" />
+    <Compile Include="NextLev.cs" />
     <Compile Include="Peng.cs" />
     <Compile Include="PlayerBall.cs" />
     <Compile Include="PlayerSpawner.cs" />

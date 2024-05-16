@@ -259,10 +259,12 @@ public class Ball : EasyDraw
             if (col.other is Bullet && this is PlayerBall)
             {
                 this.velocity.x = 0;
+                Bounce();
             }
             else if(col.other is PlayerBall && this is Bullet)
             {
                 otherBall.velocity.x = 0;
+                Bounce();
             }
             else if (col.other is Rock && this is PlayerBall)
             {
@@ -274,7 +276,6 @@ public class Ball : EasyDraw
             {
                 position = PointOfImpact(col.timeOfImpact);
                 velocity.Reflect(col.normal.Normalized(), new Vec2(0, 0), 0.01f);
-
             }
             
             

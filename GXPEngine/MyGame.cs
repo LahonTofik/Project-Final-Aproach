@@ -7,6 +7,7 @@ using System.Threading;
 public class MyGame : Game
 {
     PlayerBall player;
+    public int moves = 35;
     public List<Turret> turret;
     bool _stepped = false;
     Vec2 MousePos;
