@@ -14,6 +14,8 @@ public class PlayerBall : Ball
     MyGame myGame;
     Peng peng;
     Code code;
+    DoorSwitch doorSwitch;
+    LevelTeleport levelTeleport;
     Vec2 mouseStart;
     Vec2 mouseEnd;
     Vec2 mouseVel;
@@ -22,28 +24,63 @@ public class PlayerBall : Ball
     float speed = 3;
     float maxSpeed = 6;
     float jumpPow = 15;
-    public PlayerBall(int pRadius, Vec2 pPosition, Vec2 pVelocity = default,float density = 1, Vec2 pGravity = default, bool moving = true, bool pIsPlayer = false) : base(pRadius, pPosition, pVelocity,density, pGravity, moving, pIsPlayer)
+    bool leverOpen = false;
+    public PlayerBall(int pRadius, Vec2 pPosition, Vec2 pVelocity = default, float density = 1, Vec2 pGravity = default, bool moving = true, bool pIsPlayer = false) : base(pRadius, pPosition, pVelocity, density, pGravity, moving, pIsPlayer)
     {
         myGame = (MyGame)game;
-        peng = new Peng("Assets/rolling.png",3,2);
-        peng.SetOrigin(this.width+350,this.height+450);
+        peng = new Peng("Assets/rolling.png", 3, 2);
+        peng.SetOrigin(this.width + 350, this.height + 450);
         AddChild(peng);
         peng.scale = 0.1f;
     }
     void Update()
     {
         MovePlayer();
-        if(myGame.currentLevel ==2)
-        CheckPaper();
+        if (myGame.currentLevel == 0)
+        {
+            SwitchCollision();
+            LevelTeleport();
+        }
+        if (myGame.currentLevel == 2)
+            CheckPaper();
 
     }
+
+    void SwitchCollision()
+    {
+        if (doorSwitch == null)
+            doorSwitch = myGame.FindObjectOfType<DoorSwitch>();
+        if (position.x > doorSwitch.position.x
+            && position.x < (doorSwitch.position.x + doorSwitch.width)
+            && position.y > (doorSwitch.position.y - doorSwitch.height)
+            && position.y < doorSwitch.position.y)
+        {
+            leverOpen = true;
+            doorSwitch.SwitchIsOpen(leverOpen);
+            levelTeleport.DoorIsOpen(leverOpen);
+        }
+    }
+
+    void LevelTeleport()
+    {
+        if (levelTeleport == null)
+            levelTeleport = myGame.FindObjectOfType<LevelTeleport>();
+        if (leverOpen == true && position.x > levelTeleport.position.x
+            && position.x < (levelTeleport.position.x + levelTeleport.width)
+            && position.y > (levelTeleport.position.y - levelTeleport.height)
+            && position.y < levelTeleport.position.y)
+        {
+            myGame.SetCurrentLevel(1);
+        }
+    }
+
     void CheckPaper()
     {
-        if(code == null)
-        code = myGame.FindObjectOfType<Code>();
+        if (code == null)
+            code = myGame.FindObjectOfType<Code>();
         /*dist = (code.position - position).Length();*/
         if (position.x > code.position.x
-            && position.x < (code.position.x +code.width)
+            && position.x < (code.position.x + code.width)
             && position.y > (code.position.y - code.height)
             && position.y < code.position.y)
         {
@@ -100,7 +137,7 @@ public class PlayerBall : Ball
             if (peng.currentFrame == 5)
                 peng.rotation += velocity.x;
         }
-        if(velocity.x == 0)
+        if (velocity.x == 0)
         {
             peng.rotation = 0;
             peng.SetCycle(0, 1);
