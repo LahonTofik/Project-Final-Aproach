@@ -16,7 +16,7 @@ public class Bullet : Ball
     PlayerBall player;
     Vec2 distance;
     Vec2 mousePos;
-    public float _speed = 5;
+    public float _speed = 3;
     float _acel = 0.1f;
     int bounces = 1;
     float timer = 5000;
@@ -40,14 +40,15 @@ public class Bullet : Ball
         distance = (player.position - position);
         if (distance.Length() > radius)
         {
-            velocity = velocity * 0.9f + distance.Normalized() * 0.1f;
+            velocity = velocity * 0.95f + distance.Normalized() * 0.05f;
             _speed += _acel;
         }
         timer -= Time.deltaTime;
         if (timer <= 0 || bounces <= 0)
         {
             myGame.RemoveMover(this);
-            this.Destroy();
+            sprite.Remove();
+            this.Remove();
         }
         sprite.rotation = velocity.GetAngleDegrees();
     }

@@ -37,38 +37,8 @@ public class Level : GameObject
         loader.addColliders = true;
         loader.LoadTileLayers(); // platforms and walls (everything that is collidable)
         loader.LoadObjectGroups();
-        
-
     }
-    /*void HandleScroll()
-    {
-        if (player == null)
-        {
-            Console.WriteLine("ok");
-            return;
-        }
-        int boundarySizex = 500;
-        if (player.x + x < boundarySizex)
-        {
-            x = boundarySizex - player.x;
-        }
-        if (player.x + x > game.width - boundarySizex)
-        {
-            x = game.width - boundarySizex - player.x;
-        }
-        if (prevX != x)
-        {
-            Console.WriteLine("ok");
-            float diff = x - prevX;
-            foreach (LineSegment line in myGame._lines)
-            {
-                line.start.x += diff;
-                line.end.x += diff;
-            }
 
-        }
-        prevX = x;
-    }*/
     void GameBoundary()
     {
         if (player == null) return;
@@ -81,7 +51,6 @@ public class Level : GameObject
 
     void Update()
     {
-        /*HandleScroll();*/
         GameBoundary();
     }
 }

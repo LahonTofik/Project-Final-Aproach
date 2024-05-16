@@ -2,6 +2,7 @@
 using GXPEngine.Core;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Dynamic;
 using System.Linq;
 using System.Security.Policy;
@@ -17,15 +18,20 @@ public class Code : AnimationSprite
     TiledObject tiledObject;
     public Vec2 position;
     public bool shown = false;
-    float timer= 300f;
+    float timer = 300f;
+    PlayerBall player;
     Sprite papers;
     MyGame mygame;
+    EasyDraw coding;
+    Font rowdies;
     public Code(string fileName, int cols, int rows, TiledObject obj = null) : base(fileName, cols, rows)
     {
         mygame = (MyGame)game;
         papers = new Sprite("Assets/papers.png");
+        rowdies = Utils.LoadFont("Assets/Rowdies-Regular.ttf", 40);
         code = new List<char>();
         tiledObject = obj;
+
         float width = tiledObject.Width;
         float height = tiledObject.Height;
         position = new Vec2(tiledObject.X, tiledObject.Y);
@@ -39,10 +45,33 @@ public class Code : AnimationSprite
                 papers.x = mygame.width / 2 - papers.width / 2;
                 papers.y = mygame.height / 2 - papers.height / 2f;
                 mygame.AddChild(papers);
+                coding = new EasyDraw(600, 100, false);
+                coding.TextFont(rowdies);
+                coding.TextAlign(CenterMode.Min, CenterMode.Max);
+                coding.Fill(Color.Black);
+                coding.SetXY(papers.width/2-coding.width/10,papers.height/2-coding.height/2);
+                papers.AddChild(coding);
                 shown = true;
             }
             Inputs();
+            SetCode();
+            if (Input.GetMouseButtonDown(0))
+            {
+                if (player == null)
+                {
+                    player = mygame.FindObjectOfType<PlayerBall>();
+                }
+                papers.Remove();
+                code.Clear();
+                coding.ClearTransparent();
+                shown = false;
+                player.position.x = position.x - 10;
+            }
         }
+    }
+    void SetCode()
+    {
+        coding.Text(numb);
     }
     void Inputs()
     {
@@ -91,9 +120,11 @@ public class Code : AnimationSprite
     void Conv()
     {
         timer--;
-        if(timer < 0) {
+        if (timer < 0)
+        {
             code.Clear();
             timer = 300;
+            coding.ClearTransparent();
         }
         numb = new string(code.ToArray());
         if (numb == "371")

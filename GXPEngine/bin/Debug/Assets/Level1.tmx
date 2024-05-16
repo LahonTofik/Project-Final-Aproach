@@ -42,7 +42,7 @@
   <object id="60" type="Cube" gid="4032" x="1664" y="832" width="320.666" height="64"/>
   <object id="61" type="Cube" gid="4032" x="1280" y="960" width="256.666" height="64"/>
   <object id="62" type="Cube" gid="4032" x="0" y="704" width="256.666" height="64"/>
-  <object id="63" type="Cube" gid="4032" x="640.25" y="1024" width="192.416" height="64"/>
+  <object id="63" type="Cube" gid="4032" x="640.25" y="1024" width="127.749" height="64"/>
   <object id="64" type="Code" gid="3737" x="448" y="1088" width="64" height="64"/>
  </objectgroup>
  <layer id="1" name="Tile Layer 1" width="60" height="19">

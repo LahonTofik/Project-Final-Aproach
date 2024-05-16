@@ -80,8 +80,9 @@ public class Ball : EasyDraw
         if (this is Bullet)
         {
             bullet = FindObjectOfType<Bullet>();
-            position += velocity * bullet._speed;
             _oldPosition = position;
+            position += velocity * bullet._speed;
+            
         }
         else
         {
@@ -237,6 +238,10 @@ public class Ball : EasyDraw
     {
         if (col.other is LineSegment)
         {
+            if(this is Bullet)
+            {
+                Bounce();
+            }
             LineSegment line = (LineSegment)col.other;
             position = PointOfImpact(col.timeOfImpact);
             velocity.Reflect(col.normal.Normalized(), new Vec2(0, 0), 0.5f);
@@ -274,7 +279,6 @@ public class Ball : EasyDraw
             
             
         }
-        Bounce();
     }
     public virtual void Bounce()
     {

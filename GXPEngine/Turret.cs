@@ -7,6 +7,7 @@ public class Turret : Sprite
 {
     Vec2 position;
     int bounces;
+    Code code;
     Vec2 direction;
     float targetAngle;
     List<Ball> bullets;
@@ -26,7 +27,6 @@ public class Turret : Sprite
 
     public void Update()
     {
-        timer -= Time.deltaTime;
         for (int i = 0; i < myGame.GetNumberOfMovers(); i++)
         {
             Ball mover = myGame.GetMover(i);
@@ -37,6 +37,12 @@ public class Turret : Sprite
                 targetAngle = direction.GetAngleDegrees();
             }
         }
+        if (code == null)
+        {
+            code = myGame.FindObjectOfType<Code>();
+        }
+        if (!code.paper)
+        timer -= Time.deltaTime;
         if (timer <= 0)
         {
             velocity = new Vec2(2, 0);
