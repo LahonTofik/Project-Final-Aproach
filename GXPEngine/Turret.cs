@@ -39,9 +39,9 @@ public class Turret : Sprite
         }
         if (timer <= 0)
         {
-            velocity = new Vec2(10, 0);
+            velocity = new Vec2(2, 0);
             velocity.RotateDegrees(targetAngle);
-            myGame.AddMover(new Bullet(3, position + velocity.Normalized() * (this.height + 10), targetAngle, velocity, 1, new Vec2(0, 0.5f)));
+            myGame.AddMover(new Bullet(3, position + velocity.Normalized(), targetAngle, velocity, 1, new Vec2(0, 0.5f)));
             Console.WriteLine("ball made");
             timer = 2500;
         }

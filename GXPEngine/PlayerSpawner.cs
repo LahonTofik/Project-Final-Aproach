@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TiledMapParser;
 
-public class PlayerSpawner : AnimationSprite
+public class Spawner : AnimationSprite
 {
     MyGame myGame;
     bool player;
@@ -15,7 +15,7 @@ public class PlayerSpawner : AnimationSprite
     TiledObject tiledObject;
     Vec2 startcheck;
     public List<LineSegment> lines;
-    public PlayerSpawner(String fileName, int cols, int rows, TiledObject obj = null) : base("Assets/floor_tile_1.png", cols, rows)
+    public Spawner(String fileName, int cols, int rows, TiledObject obj = null) : base("Assets/floor_tile_1.png", cols, rows)
     {
         alpha = 0;
         tiledObject = obj;

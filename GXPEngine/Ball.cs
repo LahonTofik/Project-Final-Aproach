@@ -9,6 +9,7 @@ using GXPEngine.Core;
 
 public class Ball : EasyDraw
 {
+    Bullet bullet;
     Cube cube;
     public static bool drawDebugLine = false;
     public static float bounciness = 0.4f;
@@ -76,12 +77,18 @@ public class Ball : EasyDraw
 
     public void Step()
     {
-        if (gravity.Length() != 0)
-            velocity += gravity;
+        if (this is Bullet)
+        {
+            bullet = FindObjectOfType<Bullet>();
+            position += velocity * bullet._speed;
+            _oldPosition = position;
+        }
         else
+        {
             velocity += acceleration;
-        _oldPosition = position;
-        position += velocity;
+            _oldPosition = position;
+            position += velocity;
+        }
 
         CollisionInfo firstCollision = FindEarliestCollision();
         if (firstCollision != null)
