@@ -7,21 +7,22 @@ using System.Threading;
 public class MyGame : Game
 {
     PlayerBall player;
+    public List<Turret> turret;
     bool _stepped = false;
     Vec2 MousePos;
     bool _paused = false;
     int _stepIndex = 0;
     int _startSceneNumber = 0;
-	public int currentLevel = 0; // levels start from level 0
-	public string[] levels = new string[3];	// amount of levels is 1
+    public int currentLevel = 0; // levels start from level 0
+    public string[] levels = new string[3]; // amount of levels is 1
 
-	public bool nextLevel = false;
+    public bool nextLevel = false;
 
     public EasyDraw colliderHolder;
 
-	public int GetCurrentLevel()
-	{
-		return currentLevel;
+    public int GetCurrentLevel()
+    {
+        return currentLevel;
     }
     public void SetCurrentLevel(int _value)
     {
@@ -57,10 +58,11 @@ public class MyGame : Game
     }
 
     Canvas _lineContainer = null;
-	public MyGame() : base(3840, 1216, false, false, 1920, 1200, false)     
-	{
+    public MyGame() : base(3840, 1216, false, false, 1920, 1200, false)
+    {
         _movers = new List<Ball>();
         _lines = new List<LineSegment>();
+        turret = new List<Turret>();
         levels[0] = "Assets/Level1.tmx";
         levels[1] = "Assets/Level2.tmx";
         levels[2] = "Assets/Level3.tmx";
@@ -68,15 +70,29 @@ public class MyGame : Game
         LoadLevel(levels[0]);
         player = FindObjectOfType<PlayerBall>();
         Ball.acceleration.SetXY(0, 0.75f);
-        
+
     }
 
     public List<Ball> _movers;
     public List<LineSegment> _lines;
     EasyDraw congrats;
-	Font rowdies;
+    Font rowdies;
     void DestroyAllLevels()
     {
+        foreach (Ball mover in _movers)
+        {
+            mover.Destroy();
+        }
+        _movers.Clear();
+        foreach (LineSegment lines in _lines)
+        {
+            lines.Destroy();
+        }
+        _lines.Clear();
+        foreach (Turret turret in turret)
+        {
+            turret.Destroy();
+        }
         List<GameObject> children = GetChildren();
         foreach (GameObject child in children)
         {
@@ -100,17 +116,36 @@ public class MyGame : Game
     }
 
     private void LoadLevel(string name)
-	{
-		nextLevel = false;
-		DestroyAllLevels();
-		Level level = new Level(name);
-		AddChild(level);
-		//player = FindObjectOfType<Player>(); /*for when we add a player*/
-	}
-
-	// For every game object, Update is called every frame, by the engine:
-	void Update()
     {
+        nextLevel = false;
+        DestroyAllLevels();
+        Level level = new Level(name);
+        AddChild(level);
+        //player = FindObjectOfType<Player>(); /*for when we add a player*/
+    }
+
+    // For every game object, Update is called every frame, by the engine:
+    void Update()
+    {
+        if (Input.GetKeyUp(Key.P))
+        {
+            if (currentLevel <= 2)
+            {
+                nextLevel = true;
+                currentLevel++;
+                LoadLevel(levels[currentLevel]);
+            }
+        }
+        if (Input.GetKeyUp(Key.N))
+        {
+            if (currentLevel != 0)
+            {
+                nextLevel = true;
+                currentLevel--;
+                LoadLevel(levels[currentLevel]);
+            }
+        }
+
         if (!_paused)
         {
             StepThroughMovers();
@@ -168,8 +203,8 @@ public class MyGame : Game
     }
     // For every game object, Update is called every frame, by the engine:
 
-	static void Main()                          // Main() is the first method that's called when the program is run
-	{
-		new MyGame().Start();                   
-	}
+    static void Main()                          // Main() is the first method that's called when the program is run
+    {
+        new MyGame().Start();
+    }
 }

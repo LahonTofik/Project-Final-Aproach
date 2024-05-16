@@ -1,12 +1,58 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="60" height="19" tilewidth="64" tileheight="64" infinite="0" nextlayerid="4" nextobjectid="34">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="60" height="19" tilewidth="64" tileheight="64" infinite="0" nextlayerid="4" nextobjectid="75">
  <tileset firstgid="1" name="floor_tile_1" tilewidth="64" tileheight="64" tilecount="4" columns="2">
   <image source="floor_tile_1.png" width="180" height="180"/>
  </tileset>
- <tileset firstgid="5" source="Full game tiled sheet.tsx"/>
+ <tileset firstgid="5" name="Full game tiled sheet" tilewidth="64" tileheight="64" tilecount="7450" columns="149">
+  <image source="Full_Game_tilesheet.png" width="9536" height="3200"/>
+ </tileset>
  <imagelayer id="3" name="Image Layer 1" offsetx="-5696" offsety="0">
   <image source="background.png" width="9536" height="1216"/>
  </imagelayer>
+ <objectgroup id="2" name="Object Layer 1">
+  <object id="46" type="Cube" gid="4034" x="3839.13" y="1088.05" width="0.869565" height="1088.94"/>
+  <object id="47" type="Cube" gid="4034" x="0" y="1087.1" width="1" height="1087.88"/>
+  <object id="48" type="Cube" gid="4036" x="1" y="0" width="3836.33" height="0.900568"/>
+  <object id="49" type="Cube" gid="4178" x="0.101449" y="1152" width="3839.83" height="64"/>
+  <object id="50" type="Cube" gid="4032" x="2944.01" y="576" width="895.987" height="64"/>
+  <object id="51" type="Cube" gid="4032" x="3456" y="575.978" width="64" height="383.978"/>
+  <object id="52" type="Cube" gid="4032" x="3200" y="384" width="64" height="384.906"/>
+  <object id="53" type="Cube" gid="4032" x="2816" y="448" width="64" height="255.978"/>
+  <object id="54" type="Cube" gid="4032" x="2816" y="64" width="64" height="64"/>
+  <object id="56" type="Cube" gid="4032" x="1344.01" y="384" width="447.988" height="64"/>
+  <object id="57" type="Cube" gid="4032" x="1536" y="896" width="64" height="383.989"/>
+  <object id="58" type="Cube" gid="4032" x="1728.02" y="832" width="255.978" height="64"/>
+  <object id="59" type="Cube" gid="4032" x="2112" y="832" width="192" height="64"/>
+  <object id="60" type="Cube" gid="4032" x="2432" y="832" width="192.004" height="64"/>
+  <object id="61" type="Cube" gid="4032" x="512" y="768" width="832" height="64"/>
+  <object id="62" type="Cube" gid="4032" x="1280" y="960" width="64" height="320"/>
+  <object id="63" type="Cube" gid="4032" x="512" y="767.971" width="64" height="255.959"/>
+  <object id="64" type="Cube" gid="4032" x="256" y="576" width="320" height="64"/>
+  <object id="65" type="Cube" gid="4032" x="448.014" y="256.062" width="319.986" height="64.1247"/>
+  <object id="66" type="Cube" gid="4032" x="256" y="575.988" width="64" height="255.988"/>
+  <object id="67" type="Cube" gid="4032" x="0.0222222" y="384" width="319.978" height="64"/>
+  <object id="68" type="Cube" gid="4032" x="0" y="640.008" width="64" height="640.008"/>
+  <object id="69" type="Cube" gid="4032" x="896" y="192" width="319.986" height="64.1247"/>
+  <object id="70" type="Cube" gid="4032" x="1984" y="256" width="384.048" height="64.1247"/>
+  <object id="71" type="PlayerSpawner" gid="4178" x="64" y="1024" width="64" height="64">
+   <properties>
+    <property name="isPlayer" type="bool" value="true"/>
+    <property name="isTurret" type="bool" value="false"/>
+   </properties>
+  </object>
+  <object id="72" type="PlayerSpawner" gid="4178" x="2112" y="320" width="64" height="64">
+   <properties>
+    <property name="isPlayer" type="bool" value="false"/>
+    <property name="isTurret" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="74" type="PlayerSpawner" gid="4178" x="1024" y="256" width="64" height="64">
+   <properties>
+    <property name="isPlayer" type="bool" value="false"/>
+    <property name="isTurret" type="bool" value="true"/>
+   </properties>
+  </object>
+ </objectgroup>
  <layer id="1" name="Tile Layer 1" width="60" height="19">
   <data encoding="csv">
 4032,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4032,0,0,0,0,0,4032,0,0,0,0,0,0,0,0,0,
@@ -30,39 +76,4 @@
 4177,4178,4179,4177,4178,4179,4177,4178,4179,4177,4178,4179,4177,4178,4179,4177,4178,4179,4177,4178,4179,4177,4178,4179,4177,4178,4179,4177,4178,4179,4177,4178,4179,4177,4178,4179,4177,4178,4179,4177,4178,4179,4177,4178,4179,4177,4178,4179,4177,4178,4179,4177,4178,4179,4177,4178,4179,4177,4178,4179
 </data>
  </layer>
- <objectgroup id="2" name="Object Layer 1">
-  <object id="2" type="Cube" x="0" y="0" width="64" height="1152"/>
-  <object id="3" type="Cube" x="0" y="1088" width="3840" height="64"/>
-  <object id="4" type="Cube" x="2944" y="512" width="896" height="64"/>
-  <object id="5" type="Cube" x="3456" y="192" width="64" height="384"/>
-  <object id="7" type="Cube" x="2816" y="0" width="64" height="64"/>
-  <object id="8" type="Cube" x="2816" y="192" width="64" height="256"/>
-  <object id="9" type="Cube" x="1984" y="192" width="384" height="64"/>
-  <object id="10" type="Cube" x="1344" y="320" width="448" height="64"/>
-  <object id="11" type="Cube" x="896" y="128" width="320" height="64"/>
-  <object id="12" type="Cube" x="448" y="192" width="320" height="64"/>
-  <object id="13" type="Cube" x="64" y="320" width="256" height="64"/>
-  <object id="15" type="Cube" x="256" y="320" width="64" height="256"/>
-  <object id="16" type="Cube" x="256" y="512" width="320" height="64"/>
-  <object id="17" type="Cube" x="512" y="512" width="64" height="256"/>
-  <object id="18" type="Cube" x="512" y="704" width="832" height="64"/>
-  <object id="19" type="Cube" x="1280" y="640" width="64" height="320"/>
-  <object id="20" type="Cube" x="1536" y="512" width="64" height="384"/>
-  <object id="21" type="Cube" x="1728" y="768" width="256" height="64"/>
-  <object id="22" type="Cube" x="2112" y="768" width="192" height="64"/>
-  <object id="23" type="Cube" x="2432" y="768" width="192" height="64"/>
-  <object id="24" name="Door" x="3008" y="576" width="64" height="512"/>
-  <object id="26" type="Cube" x="3803" y="0" width="37" height="1152"/>
-  <object id="27" type="Cube" x="0" y="0" width="3840" height="1.625"/>
-  <object id="28" type="Cube" x="3200" y="0" width="64" height="384"/>
-  <object id="31" name="Bee Hive" x="2176" y="256" width="64" height="64">
-   <ellipse/>
-  </object>
-  <object id="32" name="Bee Hive" x="1024" y="192" width="64" height="64">
-   <ellipse/>
-  </object>
-  <object id="33" x="2664" y="-1292" width="4">
-   <ellipse/>
-  </object>
- </objectgroup>
 </map>
