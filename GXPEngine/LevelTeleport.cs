@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 using GXPEngine;
 using TiledMapParser;
 
-public class DoorSwitch : AnimationSprite
+public class LevelTeleport : AnimationSprite
 {
-    bool switchIsOpen = false;
-    public Vec2 position;
+    bool doorIsOpen = false;
     TiledObject tiledObject;
-    public DoorSwitch(TiledObject obj = null) : base("Assets/switch_spritesheet.png", 2, 1)
+    public Vec2 position;
+    public LevelTeleport(TiledObject obj = null) : base("Assets/Lock_spritesheet.png",2 ,1)
     {
         tiledObject = obj;
         collider.isTrigger = true;
@@ -20,19 +20,21 @@ public class DoorSwitch : AnimationSprite
         float height = tiledObject.Height;
         position = new Vec2(tiledObject.X, tiledObject.Y);
     }
+
     void Update()
     {
-        if (switchIsOpen == true)
-        {
-            currentFrame = 0;
-        }
-        else
+        if (doorIsOpen == true)
         {
             currentFrame = 1;
         }
+        else
+        {
+            currentFrame = 0;
+        }
     }
-    public void SwitchIsOpen(bool _switchIsOpen)
+    public void DoorIsOpen(bool _doorIsOpen)
     {
-        switchIsOpen = _switchIsOpen;
+        doorIsOpen = _doorIsOpen;
     }
 }
+
