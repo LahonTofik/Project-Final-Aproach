@@ -235,6 +235,19 @@ public class Ball : EasyDraw
 
     void ResolveCollision(CollisionInfo col)
     {
+        if (col.other is LineSegment)
+        {
+            LineSegment line = (LineSegment)col.other;
+            position = PointOfImpact(col.timeOfImpact);
+            velocity.Reflect(col.normal.Normalized(), new Vec2(0, 0), 0.5f);
+            if (this is PlayerBall)
+            {
+                if (Input.GetMouseButtonDown(0) && diff < radius * 5)
+                {
+                    velocity.x = 0;
+                }
+            }
+        }
         if (col.other is Ball)
         {
             Ball otherBall = (Ball)col.other;
@@ -260,19 +273,6 @@ public class Ball : EasyDraw
             }
             
             
-        }
-        if (col.other is LineSegment)
-        {
-            LineSegment line = (LineSegment)col.other;
-            position = PointOfImpact(col.timeOfImpact);
-            velocity.Reflect(col.normal.Normalized(), new Vec2(0, 0), 0.5f);
-            if (this is PlayerBall)
-            {
-                if (Input.GetMouseButtonDown(0) && diff < radius * 5)
-                {
-                    velocity.x = 0;
-                }
-            }
         }
         Bounce();
     }

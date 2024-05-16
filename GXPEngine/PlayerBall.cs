@@ -3,6 +3,7 @@ using GXPEngine.Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using TiledMapParser;
@@ -12,10 +13,12 @@ public class PlayerBall : Ball
     public bool pressed = false;
     MyGame myGame;
     Peng peng;
+    Code code;
     Vec2 mouseStart;
     Vec2 mouseEnd;
     Vec2 mouseVel;
     Vec2 mousePos;
+    float dist;
     float speed = 3;
     float maxSpeed = 6;
     float jumpPow = 15;
@@ -30,6 +33,23 @@ public class PlayerBall : Ball
     void Update()
     {
         MovePlayer();
+        CheckPaper();
+
+    }
+    void CheckPaper()
+    {
+        if(code == null)
+        code = myGame.FindObjectOfType<Code>();
+        /*dist = (code.position - position).Length();*/
+        if (position.x > code.position.x
+            && position.x < (code.position.x +code.width)
+            && position.y > (code.position.y - code.height)
+            && position.y < code.position.y)
+        {
+            code.paper = true;
+            velocity.x = 0;
+        }
+        else code.paper = false;
     }
     void MovePlayer()
     {
