@@ -37,7 +37,7 @@
   <object id="68" type="Cube" gid="4032" x="0" y="640.008" width="64" height="640.008"/>
   <object id="69" type="Cube" gid="4032" x="896" y="192" width="319.986" height="64.1247"/>
   <object id="70" type="Cube" gid="4032" x="2048" y="256" width="384.048" height="64.1247"/>
-  <object id="71" type="PlayerSpawner" gid="4178" x="64" y="1024" width="64" height="64">
+  <object id="71" type="PlayerSpawner" gid="4178" x="64" y="1088" width="64" height="64">
    <properties>
     <property name="isPlayer" type="bool" value="true"/>
     <property name="isTurret" type="bool" value="false"/>

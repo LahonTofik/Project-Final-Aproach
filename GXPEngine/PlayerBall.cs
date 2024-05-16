@@ -28,8 +28,8 @@ public class PlayerBall : Ball
     float speed = 3;
     float maxSpeed = 6;
     float jumpPow = 15;
-    public PlayerBall(int pRadius, Vec2 pPosition, Vec2 pVelocity = default, float density = 1, Vec2 pGravity = default, bool moving = true, bool pIsPlayer = false) : base(pRadius, pPosition, pVelocity, density, pGravity, moving, pIsPlayer)
     bool leverOpen = false;
+    public PlayerBall(int pRadius, Vec2 pPosition, Vec2 pVelocity = default, float density = 1, Vec2 pGravity = default, bool moving = true, bool pIsPlayer = false) : base(pRadius, pPosition, pVelocity, density, pGravity, moving, pIsPlayer)
     {
         myGame = (MyGame)game;
         piece = new List<CodePiece>();
@@ -42,9 +42,9 @@ public class PlayerBall : Ball
     void Update()
     {
         MovePlayer();
-        if (myGame.currentLevel == 2)
+        if (myGame.currentLevel == 3)
         CheckPaper();
-        if(myGame.currentLevel == 1)
+        if(myGame.currentLevel == 2)
         {
             if (move == null)
             {
@@ -70,7 +70,7 @@ public class PlayerBall : Ball
                 myGame.nextLevel = true;
             }
         }
-        if (myGame.currentLevel == 0)
+        if (myGame.currentLevel == 1)
         {
             SwitchCollision();
             LevelTeleport();
