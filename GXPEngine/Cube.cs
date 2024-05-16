@@ -12,7 +12,7 @@ public class Cube : AnimationSprite
     TiledObject tiledObject;
     Vec2 startcheck;
     public List<LineSegment> lines;
-    public Cube(string imageFile, int cols, int rows, TiledObject obj = null) : base(imageFile, cols, rows)
+    public Cube(String fileName, int cols, int rows, TiledObject obj = null) : base("Assets/floor_tile_1.png", cols, rows)
     {
         lines = new List<LineSegment>();
         alpha = 0;

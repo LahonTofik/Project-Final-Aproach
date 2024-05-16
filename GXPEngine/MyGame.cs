@@ -13,7 +13,7 @@ public class MyGame : Game
     int _stepIndex = 0;
     int _startSceneNumber = 0;
 	public int currentLevel = 0; // levels start from level 0
-	public string[] levels = new string[1];	// amount of levels is 1
+	public string[] levels = new string[3];	// amount of levels is 1
 
 	public bool nextLevel = false;
 
@@ -57,11 +57,13 @@ public class MyGame : Game
     }
 
     Canvas _lineContainer = null;
-	public MyGame() : base(800, 800, false, false, 800, 800, false)     
+	public MyGame() : base(3840, 1216, false, false, 1920, 1200, false)     
 	{
         _movers = new List<Ball>();
         _lines = new List<LineSegment>();
-        levels[0] = "Assets/lvl_design_v1.tmx";
+        levels[0] = "Assets/Level1.tmx";
+        levels[1] = "Assets/Level2.tmx";
+        levels[2] = "Assets/Level3.tmx";
         targetFps = 60;
         LoadLevel(levels[0]);
         player = FindObjectOfType<PlayerBall>();
@@ -113,7 +115,7 @@ public class MyGame : Game
         {
             StepThroughMovers();
         }
-        if (Input.GetMouseButtonDown(1) && !player.pressed)
+        if (Input.GetMouseButtonDown(1))
         {
             MousePos.SetXY(Input.mouseX, Input.mouseY);
             AddMover(new Rock(5, MousePos, 0, default, 5, new Vec2(0, 0.5f)));

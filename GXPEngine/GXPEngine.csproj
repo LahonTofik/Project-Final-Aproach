@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Ball.cs" />
+    <Compile Include="Bullet.cs" />
     <Compile Include="CollisionInfo.cs" />
     <Compile Include="CollisionLine.cs" />
     <Compile Include="Components\Arrow.cs" />
@@ -92,7 +93,9 @@
     <Compile Include="GXPEngine\SoLoud\SoloudSoundSystem.cs" />
     <Compile Include="Peng.cs" />
     <Compile Include="PlayerBall.cs" />
+    <Compile Include="PlayerSpawner.cs" />
     <Compile Include="Rock.cs" />
+    <Compile Include="Turret.cs" />
     <Compile Include="Vec2.cs" />
   </ItemGroup>
   <ItemGroup>
