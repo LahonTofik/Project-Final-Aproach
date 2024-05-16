@@ -33,12 +33,6 @@
   <object id="56" type="Cube" gid="4032" x="2240" y="704" width="127.333" height="64"/>
   <object id="57" type="Cube" gid="4032" x="1344" y="640" width="511.999" height="64"/>
   <object id="58" type="Cube" gid="4032" x="2432" y="576" width="576" height="64"/>
-  <object id="59" type="PlayerSpawner" gid="4178" x="1344" y="704" width="64" height="64">
-   <properties>
-    <property name="isPlayer" type="bool" value="false"/>
-    <property name="isTurret" type="bool" value="true"/>
-   </properties>
-  </object>
   <object id="60" type="Cube" gid="4032" x="1664" y="832" width="320.666" height="64"/>
   <object id="61" type="Cube" gid="4032" x="1280" y="960" width="256.666" height="64"/>
   <object id="62" type="Cube" gid="4032" x="0" y="704" width="256.666" height="64"/>

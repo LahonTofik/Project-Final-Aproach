@@ -31,6 +31,7 @@ public class PlayerBall : Ball
     bool leverOpen = false;
 
     private Sound leverSwitched = new Sound("Assets/sfx_pulling_lever.wav");
+    private Sound PengoJump = new Sound("Assets/Pengolin_Jump.wav");
 
     public PlayerBall(int pRadius, Vec2 pPosition, Vec2 pVelocity = default, float density = 1, Vec2 pGravity = default, bool moving = true, bool pIsPlayer = false) : base(pRadius, pPosition, pVelocity, density, pGravity, moving, pIsPlayer)
     {
@@ -106,7 +107,7 @@ public class PlayerBall : Ball
             && position.y > (levelTeleport.position.y - levelTeleport.height)
             && position.y < levelTeleport.position.y)
         {
-            myGame.SetCurrentLevel(1);
+            myGame.SetCurrentLevel(myGame.currentLevel++);
         }
     }
 
@@ -162,6 +163,7 @@ public class PlayerBall : Ball
         }
         if (Input.GetMouseButtonUp(0) && pressed)
         {
+            PengoJump.Play();
             mouseEnd = new Vec2(Input.mouseX, Input.mouseY);
             mouseVel = (mouseEnd - mouseStart);
             mouseVel.y *= 2;
