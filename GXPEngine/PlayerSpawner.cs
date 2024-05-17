@@ -30,7 +30,7 @@ public class PlayerSpawner : AnimationSprite
     {
         if (start && player)
         {
-            myGame.AddPlayer(new PlayerBall(10, new Vec2(x, y), new Vec2(), 1, new Vec2(0, 0.75f), true, true));
+            myGame.AddPlayer(new PlayerBall(15, new Vec2(x, y), new Vec2(), 1, new Vec2(0, 0.75f), true, true));
             start = false;
         }
         if (start && turret)

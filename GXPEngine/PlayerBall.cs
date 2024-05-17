@@ -29,6 +29,7 @@ public class PlayerBall : Ball
     float maxSpeed = 6;
     float jumpPow = 15;
     bool leverOpen = false;
+    HUD hud = null;
 
     private Sound leverSwitched = new Sound("Assets/sfx_pulling_lever.wav");
     private Sound PengoJump = new Sound("Assets/Pengolin_Jump.wav");
@@ -36,15 +37,20 @@ public class PlayerBall : Ball
     public PlayerBall(int pRadius, Vec2 pPosition, Vec2 pVelocity = default, float density = 1, Vec2 pGravity = default, bool moving = true, bool pIsPlayer = false) : base(pRadius, pPosition, pVelocity, density, pGravity, moving, pIsPlayer)
     {
         myGame = (MyGame)game;
+        alpha = 0;
         piece = new List<CodePiece>();
         peng = new Peng("Assets/rolling.png", 3, 2);
         peng.SetOrigin(this.width + 350, this.height + 450);
         piece = myGame.FindObjectsOfType<CodePiece>().ToList();
         AddChild(peng);
-        peng.scale = 0.1f;
+        peng.scale = 0.15f;
     }
     void Update()
     {
+        if(hud == null)
+        {
+            hud = myGame.FindObjectOfType<HUD>();
+        }
         MovePlayer();
         if (myGame.currentLevel == 3)
         CheckPaper();
@@ -60,6 +66,7 @@ public class PlayerBall : Ball
             && position.y < move.position.y)
             {
                 myGame.moves += 50;
+                hud.SetMoves(myGame.moves);
                 move.Bye();
             }
             if (lev == null)
@@ -172,6 +179,7 @@ public class PlayerBall : Ball
             pressed = false;
             _velocityIndicator.startPoint = new Vec2(0, 0);
             _velocityIndicator.vector = new Vec2(0, 0);
+            hud.SetMoves(myGame.moves);
         }
         if (pressed)
         {

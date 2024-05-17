@@ -50,8 +50,9 @@ public class CodePiece : AnimationSprite
                 coding = new EasyDraw(600, 100, false);
                 coding.TextFont(rowdies);
                 coding.TextAlign(CenterMode.Min, CenterMode.Max);
+                coding.TextSize(25);
                 coding.Fill(Color.Black);
-                coding.SetXY(width / 2 - coding.width / 10, height/2 - coding.height);
+                coding.SetXY(width/2 - coding.width/13, height/2 - coding.height-10);
                 coding.Text(piece);
                 AddChild(coding);
                 showing = true;

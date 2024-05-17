@@ -3,10 +3,12 @@ using GXPEngine;                                // GXPEngine contains the engine
 using System.Collections.Generic;
 using System.Drawing;                           // System.Drawing contains drawing tools such as Color definitions
 using System.Threading;
+using TiledMapParser;
 
 public class MyGame : Game
 {
     PlayerBall player;
+    HUD hud;
     public int moves = 35;
     public List<Turret> turret;
     bool _stepped = false;
@@ -62,7 +64,7 @@ public class MyGame : Game
     }
 
     Canvas _lineContainer = null;
-    public MyGame() : base(3840, 1216, false, false, 1920, 1200, false)
+    public MyGame() : base(3840, 1216, false, false, 1920, 1216, false)
     {
         _movers = new List<Ball>();
         _lines = new List<LineSegment>();
@@ -76,7 +78,7 @@ public class MyGame : Game
         player = FindObjectOfType<PlayerBall>();
         Ball.acceleration.SetXY(0, 0.75f);
         backgroundMusic = new Sound("Assets/game_music_idea1.wav", true).Play();
-        backgroundMusic.Volume = 0.2f;
+        backgroundMusic.Volume = 10f;
     }
 
     public List<Ball> _movers;
@@ -128,12 +130,22 @@ public class MyGame : Game
         DestroyAllLevels();
         Level level = new Level(name);
         AddChild(level);
+        if (currentLevel >= 1 && currentLevel <= 3)
+        {
+            hud = new HUD();
+            AddChild(hud);
+            hud.SetMoves(moves);
+        }
         //player = FindObjectOfType<Player>(); /*for when we add a player*/
     }
 
     // For every game object, Update is called every frame, by the engine:
     void Update()
     {
+        if (Input.GetKeyUp(Key.R))
+        {
+            LoadLevel(levels[currentLevel]);
+        }
         if (Input.GetKeyUp(Key.P))
         {
             if (currentLevel <= 3)
