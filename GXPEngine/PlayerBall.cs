@@ -102,7 +102,7 @@ public class PlayerBall : Ball
             && position.y > (levelTeleport.position.y - levelTeleport.height)
             && position.y < levelTeleport.position.y)
         {
-            myGame.SetCurrentLevel(1);
+            myGame.nextLevel = true;
         }
     }
 
