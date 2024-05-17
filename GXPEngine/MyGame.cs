@@ -21,6 +21,9 @@ public class MyGame : Game
 
     public EasyDraw colliderHolder;
 
+    private SoundChannel backgroundMusic;
+    private Sound respawnSound = new Sound("Assets/sfc_game_start_and_respawn.wav");
+
     public int GetCurrentLevel()
     {
         return currentLevel;
@@ -72,7 +75,8 @@ public class MyGame : Game
         LoadLevel(levels[0]);
         player = FindObjectOfType<PlayerBall>();
         Ball.acceleration.SetXY(0, 0.75f);
-
+        backgroundMusic = new Sound("Assets/game_music_idea1.wav", true).Play();
+        backgroundMusic.Volume = 0.2f;
     }
 
     public List<Ball> _movers;
@@ -119,6 +123,7 @@ public class MyGame : Game
 
     private void LoadLevel(string name)
     {
+        respawnSound.Play();
         nextLevel = false;
         DestroyAllLevels();
         Level level = new Level(name);
